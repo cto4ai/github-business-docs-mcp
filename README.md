@@ -1,5 +1,3 @@
-[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/kurdin-github-repos-manager-mcp-badge.png)](https://mseep.ai/app/kurdin-github-repos-manager-mcp)
-
 # ![github-svgrepo-logo](https://github.com/user-attachments/assets/24b48a9d-8d00-4212-921e-c0c4ddc223b6) GitHub Repos Manager MCP Server
 
 **Token-based GitHub automation management. No Docker for optimal performance, Flexible configuration for fine-grained control, 89 tools with direct API integration.**
@@ -722,3 +720,5 @@ unset GH_TOKEN  # Always clean up after testing
 ## 📜 License
 
 MIT License - Feel free to use, modify, and distribute this MCP server.
+
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/kurdin-github-repos-manager-mcp-badge.png)](https://mseep.ai/app/kurdin-github-repos-manager-mcp)
