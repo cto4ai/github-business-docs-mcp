@@ -132,16 +132,25 @@ class GitHubMCPServerMinimalOAuth {
 
           // Ensure we're authorized before handling tool calls
           if (!this.oauthService.isAuthenticated()) {
+            console.error('[DEBUG] Not authenticated, starting authorization...');
             await this.authorize();
+            console.error('[DEBUG] Authorization completed, this.api exists:', !!this.api);
+          }
+
+          // Verify API client exists
+          if (!this.api) {
+            console.error('[DEBUG] CRITICAL: this.api is undefined after authorization!');
+            console.error('[DEBUG] Attempting to create API client manually...');
+            const token = await this.getToken();
+            this.api = new GitHubAPIService(token);
+            console.error('[DEBUG] API client created manually');
           }
 
           // Get fresh token (will auto-refresh if needed)
           const token = await this.getToken();
 
-          // Update API service token if needed
-          if (this.api) {
-            this.api.token = token;
-          }
+          // Update API service token
+          this.api.token = token;
 
           // Get default repo values for convenience
           const defaults = this.getDefaultRepo();
