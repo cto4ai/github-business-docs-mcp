@@ -41,7 +41,17 @@ class GitHubOAuthService {
       `state=${state}`;
 
     console.log('🔐 Starting OAuth authorization...');
-    console.log(`   Open this URL in your browser:\n   ${authUrl}\n`);
+    console.log(`   Opening browser to: ${authUrl}\n`);
+
+    // Try to open browser using dynamic import (open is ESM-only)
+    try {
+      const open = (await import('open')).default;
+      await open(authUrl);
+      console.log('✅ Browser opened');
+    } catch (error) {
+      console.log('⚠️  Could not auto-open browser');
+      console.log(`   Please open this URL manually:\n   ${authUrl}\n`);
+    }
 
     // Wait for callback with authorization code
     const code = await this.waitForCallback(state);
