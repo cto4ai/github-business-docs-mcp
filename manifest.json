@@ -1,0 +1,116 @@
+{
+  "manifest_version": "1.0",
+  "name": "github-docs-oauth",
+  "display_name": "GitHub Docs (OAuth)",
+  "version": "1.0.0",
+  "description": "Minimal MCP for GitHub documentation management with individual user attribution via OAuth",
+  "long_description": "A minimal Model Context Protocol server for managing GitHub documentation repositories. Uses OAuth user-to-server tokens for individual commit attribution - all commits show YOUR name, not a bot account. Provides 6 essential tools for docs-as-code workflows: create/update files, read files, list contents, delete files, search code, and list commits.",
+
+  "author": {
+    "name": "CTO4",
+    "email": "info@cto4.ai",
+    "url": "https://github.com/cto4ai"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cto4ai/github-repos-manager-mcp"
+  },
+
+  "homepage": "https://github.com/cto4ai/github-repos-manager-mcp",
+  "documentation": "https://github.com/cto4ai/github-repos-manager-mcp#readme",
+  "support": "https://github.com/cto4ai/github-repos-manager-mcp/issues",
+
+  "keywords": [
+    "github",
+    "documentation",
+    "docs-as-code",
+    "oauth",
+    "user-attribution",
+    "git",
+    "markdown",
+    "mcp"
+  ],
+
+  "license": "MIT",
+
+  "user_config": {
+    "github_client_id": {
+      "type": "string",
+      "title": "GitHub App Client ID",
+      "description": "Your GitHub OAuth App Client ID (starts with 'Iv')",
+      "required": true,
+      "sensitive": false
+    },
+    "github_client_secret": {
+      "type": "string",
+      "title": "GitHub App Client Secret",
+      "description": "Your GitHub OAuth App Client Secret",
+      "required": true,
+      "sensitive": true
+    },
+    "default_owner": {
+      "type": "string",
+      "title": "Default Repository Owner",
+      "description": "Default GitHub username or organization (e.g., 'jack4git')",
+      "required": false,
+      "sensitive": false
+    },
+    "default_repo": {
+      "type": "string",
+      "title": "Default Repository Name",
+      "description": "Default repository name (e.g., 'ai-first-docs-01')",
+      "required": false,
+      "sensitive": false
+    }
+  },
+
+  "server": {
+    "command": "node",
+    "args": [
+      "server-minimal-oauth.cjs",
+      "--default-owner",
+      "${user_config.default_owner}",
+      "--default-repo",
+      "${user_config.default_repo}"
+    ],
+    "env": {
+      "GITHUB_CLIENT_ID": "${user_config.github_client_id}",
+      "GITHUB_CLIENT_SECRET": "${user_config.github_client_secret}"
+    }
+  },
+
+  "tools": [
+    {
+      "name": "create_or_update_file",
+      "description": "Create or update a file in the GitHub repository"
+    },
+    {
+      "name": "get_file",
+      "description": "Get the contents of a file from the repository"
+    },
+    {
+      "name": "list_contents",
+      "description": "List the contents of a directory in the repository"
+    },
+    {
+      "name": "delete_file",
+      "description": "Delete a file from the repository"
+    },
+    {
+      "name": "search_code",
+      "description": "Search for code across the repository"
+    },
+    {
+      "name": "list_commits",
+      "description": "List commit history for the repository or a specific file"
+    }
+  ],
+
+  "tools_generated": false,
+  "prompts_generated": false,
+
+  "compatibility": {
+    "node": ">=18.0.0"
+  }
+}
