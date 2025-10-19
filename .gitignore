@@ -43,3 +43,6 @@ coverage/
 .idea/
 *.sublime-workspace
 *.sublime-project
+# MCPB build artifacts
+*.mcpb
+mcpb-build/
