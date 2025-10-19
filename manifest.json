@@ -66,17 +66,21 @@
   },
 
   "server": {
-    "command": "node",
-    "args": [
-      "server-minimal-oauth.cjs",
-      "--default-owner",
-      "${user_config.default_owner}",
-      "--default-repo",
-      "${user_config.default_repo}"
-    ],
-    "env": {
-      "GITHUB_CLIENT_ID": "${user_config.github_client_id}",
-      "GITHUB_CLIENT_SECRET": "${user_config.github_client_secret}"
+    "type": "node",
+    "entry_point": "server-minimal-oauth.cjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server-minimal-oauth.cjs",
+        "--default-owner",
+        "${user_config.default_owner}",
+        "--default-repo",
+        "${user_config.default_repo}"
+      ],
+      "env": {
+        "GITHUB_CLIENT_ID": "${user_config.github_client_id}",
+        "GITHUB_CLIENT_SECRET": "${user_config.github_client_secret}"
+      }
     }
   },
 
