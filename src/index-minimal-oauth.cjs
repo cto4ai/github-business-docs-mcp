@@ -52,18 +52,18 @@ class GitHubMCPServerMinimalOAuth {
    * Authorize user and initialize API service
    */
   async authorize() {
-    console.log('\n🔐 GitHub OAuth Authorization Required\n');
-    console.log('This MCP uses OAuth for individual user attribution.');
-    console.log('Commits will show YOUR name, not a bot account.\n');
+    console.error('\n🔐 GitHub OAuth Authorization Required\n');
+    console.error('This MCP uses OAuth for individual user attribution.');
+    console.error('Commits will show YOUR name, not a bot account.\n');
 
     const { accessToken, user } = await this.oauthService.authorize();
 
     // Initialize API service with user's token
     this.api = new GitHubAPIService(accessToken);
 
-    console.log('\n✅ Authorization complete!');
-    console.log(`   Authenticated as: ${user.login}`);
-    console.log(`   All commits will be attributed to: ${user.name || user.login}\n`);
+    console.error('\n✅ Authorization complete!');
+    console.error(`   Authenticated as: ${user.login}`);
+    console.error(`   All commits will be attributed to: ${user.name || user.login}\n`);
 
     return { accessToken, user };
   }

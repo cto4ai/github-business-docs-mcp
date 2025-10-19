@@ -40,17 +40,17 @@ class GitHubOAuthService {
       `scope=${encodeURIComponent(this.scope)}&` +
       `state=${state}`;
 
-    console.log('🔐 Starting OAuth authorization...');
-    console.log(`   Opening browser to: ${authUrl}\n`);
+    console.error('🔐 Starting OAuth authorization...');
+    console.error(`   Opening browser to: ${authUrl}\n`);
 
     // Try to open browser using dynamic import (open is ESM-only)
     try {
       const open = (await import('open')).default;
       await open(authUrl);
-      console.log('✅ Browser opened');
+      console.error('✅ Browser opened');
     } catch (error) {
-      console.log('⚠️  Could not auto-open browser');
-      console.log(`   Please open this URL manually:\n   ${authUrl}\n`);
+      console.error('⚠️  Could not auto-open browser');
+      console.error(`   Please open this URL manually:\n   ${authUrl}\n`);
     }
 
     // Wait for callback with authorization code
@@ -142,8 +142,8 @@ class GitHubOAuthService {
       });
 
       server = app.listen(this.port, () => {
-        console.log(`🎧 Listening for OAuth callback on http://localhost:${this.port}`);
-        console.log('   Waiting for authorization...\n');
+        console.error(`🎧 Listening for OAuth callback on http://localhost:${this.port}`);
+        console.error('   Waiting for authorization...\n');
       });
     });
   }
@@ -152,7 +152,7 @@ class GitHubOAuthService {
    * Exchange authorization code for access token
    */
   async exchangeCodeForToken(code) {
-    console.log('🔄 Exchanging authorization code for access token...');
+    console.error('🔄 Exchanging authorization code for access token...');
 
     const response = await fetch('https://github.com/login/oauth/access_token', {
       method: 'POST',
@@ -181,11 +181,11 @@ class GitHubOAuthService {
       this.tokenExpiry = Date.now() + (data.expires_in * 1000);
     }
 
-    console.log('✅ Access token received');
-    console.log(`   Token type: ${data.token_type}`);
-    console.log(`   Scope: ${data.scope}`);
+    console.error('✅ Access token received');
+    console.error(`   Token type: ${data.token_type}`);
+    console.error(`   Scope: ${data.scope}`);
     if (data.expires_in) {
-      console.log(`   Expires in: ${data.expires_in} seconds (${Math.round(data.expires_in / 60)} minutes)`);
+      console.error(`   Expires in: ${data.expires_in} seconds (${Math.round(data.expires_in / 60)} minutes)`);
     }
 
     return this.accessToken;
@@ -195,7 +195,7 @@ class GitHubOAuthService {
    * Get authenticated user information
    */
   async getUserInfo() {
-    console.log('\n👤 Fetching user information...');
+    console.error('\n👤 Fetching user information...');
 
     const response = await fetch('https://api.github.com/user', {
       headers: {
@@ -211,10 +211,10 @@ class GitHubOAuthService {
 
     this.authenticatedUser = await response.json();
 
-    console.log(`✅ Authenticated as: ${this.authenticatedUser.login}`);
-    console.log(`   Name: ${this.authenticatedUser.name || '(not set)'}`);
-    console.log(`   Email: ${this.authenticatedUser.email || '(private)'}`);
-    console.log(`   ID: ${this.authenticatedUser.id}`);
+    console.error(`✅ Authenticated as: ${this.authenticatedUser.login}`);
+    console.error(`   Name: ${this.authenticatedUser.name || '(not set)'}`);
+    console.error(`   Email: ${this.authenticatedUser.email || '(private)'}`);
+    console.error(`   ID: ${this.authenticatedUser.id}`);
 
     return this.authenticatedUser;
   }
@@ -235,7 +235,7 @@ class GitHubOAuthService {
       throw new Error('No refresh token available');
     }
 
-    console.log('🔄 Refreshing access token...');
+    console.error('🔄 Refreshing access token...');
 
     const response = await fetch('https://github.com/login/oauth/access_token', {
       method: 'POST',
@@ -264,7 +264,7 @@ class GitHubOAuthService {
       this.tokenExpiry = Date.now() + (data.expires_in * 1000);
     }
 
-    console.log('✅ Access token refreshed');
+    console.error('✅ Access token refreshed');
 
     return this.accessToken;
   }
@@ -307,7 +307,7 @@ class GitHubOAuthService {
     this.refreshToken = null;
     this.tokenExpiry = null;
     this.authenticatedUser = null;
-    console.log('🔓 Logged out');
+    console.error('🔓 Logged out');
   }
 }
 
