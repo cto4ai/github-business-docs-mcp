@@ -163,46 +163,53 @@ class GitHubMCPServerMinimalOAuth {
           let result;
 
           // Route to appropriate handler
+          // All handlers expect: (params, defaultRepo, apiService)
           switch (toolName) {
             // File Management
             case "create_or_update_file":
               result = await fileManagementMinimal.createOrUpdateFileHandler(
-                this.api,
-                finalArgs
+                finalArgs,
+                defaults,
+                this.api
               );
               break;
             case "get_file":
               result = await fileManagementMinimal.getFileHandler(
-                this.api,
-                finalArgs
+                finalArgs,
+                defaults,
+                this.api
               );
               break;
             case "delete_file":
               result = await fileManagementMinimal.deleteFileHandler(
-                this.api,
-                finalArgs
+                finalArgs,
+                defaults,
+                this.api
               );
               break;
 
             // Repository
             case "list_contents":
               result = await repositoryMinimal.listContentsHandler(
-                this.api,
-                finalArgs
+                finalArgs,
+                defaults,
+                this.api
               );
               break;
             case "list_commits":
               result = await repositoryMinimal.listCommitsHandler(
-                this.api,
-                finalArgs
+                finalArgs,
+                defaults,
+                this.api
               );
               break;
 
             // Search
             case "search_code":
               result = await searchMinimal.searchCodeHandler(
-                this.api,
-                finalArgs
+                finalArgs,
+                defaults,
+                this.api
               );
               break;
 
