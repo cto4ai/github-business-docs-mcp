@@ -213,9 +213,7 @@ class GitHubMCPServerMinimalOAuth {
   async run() {
     const transport = new this.StdioServerTransport();
     await this.server.connect(transport);
-    console.log("🚀 GitHub Docs MCP Server (Minimal + OAuth) running on stdio");
-    console.log(`   Default repo: ${this.defaultOwner}/${this.defaultRepo || '(not set)'}`);
-    console.log(`   ⚠️  OAuth authorization will be required on first tool use\n`);
+    // Server running - stdio is used for MCP protocol, no console output
   }
 }
 
