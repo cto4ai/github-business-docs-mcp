@@ -211,14 +211,11 @@ class GitHubMCPServerMinimalOAuth {
   }
 
   async run() {
-    // Authorize user before starting server
-    await this.authorize();
-
     const transport = new this.StdioServerTransport();
     await this.server.connect(transport);
     console.log("🚀 GitHub Docs MCP Server (Minimal + OAuth) running on stdio");
-    console.log(`   Authenticated as: ${this.getUser().login}`);
-    console.log(`   Default repo: ${this.defaultOwner}/${this.defaultRepo || '(not set)'}\n`);
+    console.log(`   Default repo: ${this.defaultOwner}/${this.defaultRepo || '(not set)'}`);
+    console.log(`   ⚠️  OAuth authorization will be required on first tool use\n`);
   }
 }
 
