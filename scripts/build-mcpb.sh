@@ -74,20 +74,31 @@ npm ci --production --quiet
 # Step 2: Copy required files and inject config
 echo "📋 Copying files to build directory..."
 
-# Copy manifest and inject default values from .env
-echo "   Injecting config defaults into manifest.json..."
+# Copy manifest and hardcode config values from .env
+echo "   Hardcoding config values into manifest.json..."
 node -e "
 const fs = require('fs');
 const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
 
-// Inject default values into user_config
-manifest.user_config.github_client_id.default = process.env.GITHUB_CLIENT_ID;
-manifest.user_config.github_client_secret.default = process.env.GITHUB_CLIENT_SECRET;
-manifest.user_config.default_owner.default = process.env.GH_DEFAULT_OWNER || '';
-manifest.user_config.default_repo.default = process.env.GH_DEFAULT_REPO || '';
+// Remove user_config entirely (hardcoding values instead)
+delete manifest.user_config;
+
+// Hardcode values directly into server.mcp_config
+manifest.server.mcp_config.env.GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+manifest.server.mcp_config.env.GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+
+// Update args to use hardcoded values instead of user_config references
+manifest.server.mcp_config.args = [
+  '\${__dirname}/server-minimal-oauth.cjs',
+  '--default-owner',
+  process.env.GH_DEFAULT_OWNER || '',
+  '--default-repo',
+  process.env.GH_DEFAULT_REPO || ''
+];
 
 fs.writeFileSync('$BUILD_DIR/manifest.json', JSON.stringify(manifest, null, 2));
-console.log('   ✅ Config defaults injected into manifest.json');
+console.log('   ✅ Config values hardcoded into manifest.json');
+console.log('   ℹ️  No user input required - zero-config installation');
 "
 
 # Other core files
