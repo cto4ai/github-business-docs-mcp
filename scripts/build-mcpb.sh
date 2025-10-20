@@ -13,6 +13,44 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROJECT_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
 cd "$PROJECT_ROOT"
 
+# Load configuration from .env file
+if [ ! -f ".env" ]; then
+  echo "❌ Error: .env file not found!"
+  echo "   Please create a .env file with:"
+  echo "   - GITHUB_CLIENT_ID"
+  echo "   - GITHUB_CLIENT_SECRET"
+  echo "   - GH_DEFAULT_OWNER (optional)"
+  echo "   - GH_DEFAULT_REPO (optional)"
+  exit 1
+fi
+
+echo "📝 Loading configuration from .env file..."
+# Source the .env file
+set -a
+source .env
+set +a
+
+# Validate required values
+if [ -z "$GITHUB_CLIENT_ID" ]; then
+  echo "❌ Error: GITHUB_CLIENT_ID not set in .env"
+  exit 1
+fi
+
+if [ -z "$GITHUB_CLIENT_SECRET" ]; then
+  echo "❌ Error: GITHUB_CLIENT_SECRET not set in .env"
+  exit 1
+fi
+
+echo "   ✅ GitHub Client ID: ${GITHUB_CLIENT_ID:0:10}..."
+echo "   ✅ GitHub Client Secret: ***"
+if [ -n "$GH_DEFAULT_OWNER" ]; then
+  echo "   ✅ Default Owner: $GH_DEFAULT_OWNER"
+fi
+if [ -n "$GH_DEFAULT_REPO" ]; then
+  echo "   ✅ Default Repo: $GH_DEFAULT_REPO"
+fi
+echo ""
+
 # Configuration
 VERSION="1.0.0"
 PACKAGE_NAME="github-docs-oauth"
@@ -33,11 +71,26 @@ echo "📦 Installing production dependencies..."
 echo "   (This may take a minute...)"
 npm ci --production --quiet
 
-# Step 2: Copy required files
+# Step 2: Copy required files and inject config
 echo "📋 Copying files to build directory..."
 
-# Core files
-cp manifest.json "$BUILD_DIR/"
+# Copy manifest and inject default values from .env
+echo "   Injecting config defaults into manifest.json..."
+node -e "
+const fs = require('fs');
+const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+
+// Inject default values into user_config
+manifest.user_config.github_client_id.default = process.env.GITHUB_CLIENT_ID;
+manifest.user_config.github_client_secret.default = process.env.GITHUB_CLIENT_SECRET;
+manifest.user_config.default_owner.default = process.env.GH_DEFAULT_OWNER || '';
+manifest.user_config.default_repo.default = process.env.GH_DEFAULT_REPO || '';
+
+fs.writeFileSync('$BUILD_DIR/manifest.json', JSON.stringify(manifest, null, 2));
+console.log('   ✅ Config defaults injected into manifest.json');
+"
+
+# Other core files
 cp server-minimal-oauth.cjs "$BUILD_DIR/"
 cp package.json "$BUILD_DIR/"
 cp package-lock.json "$BUILD_DIR/"

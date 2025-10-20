@@ -1,0 +1,16 @@
+{
+  "_comment": "This is a template for mcpb-config.json. Copy this file to mcpb-config.json and fill in your values.",
+  "_usage": "The build script will inject these values as defaults in manifest.json during the .mcpb build process",
+
+  "github_client_id": "Iv1.YOUR_CLIENT_ID_HERE",
+  "github_client_secret": "YOUR_CLIENT_SECRET_HERE",
+  "default_owner": "your-github-username-or-org",
+  "default_repo": "your-default-repo-name",
+
+  "_notes": [
+    "github_client_id: Get from GitHub OAuth App settings (starts with 'Iv')",
+    "github_client_secret: Get from GitHub OAuth App settings",
+    "default_owner: Your GitHub username or organization name",
+    "default_repo: Default repository name (users can override at runtime)"
+  ]
+}

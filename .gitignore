@@ -9,6 +9,9 @@ pnpm-debug.log*
 .env
 .env.*.local
 
+# MCPB configuration (contains OAuth secrets)
+mcpb-config.json
+
 # Logs
 logs/
 *.log
