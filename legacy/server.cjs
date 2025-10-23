@@ -1,13 +1,11 @@
 #!/usr/bin/env node
 
-// Minimal GitHub MCP Server with OAuth entry point
-const GitHubMCPServerMinimalOAuth = require("./src/index-minimal-oauth.cjs");
+// Import the refactored server from the src directory
+const GitHubMCPServer = require("./src/index.cjs");
 
 // Parse command line arguments for config
 const args = process.argv.slice(2);
-const config = {
-  oauth: {}, // OAuth config from environment
-};
+const config = {};
 
 // Support command line arguments for default repository
 for (let i = 0; i < args.length; i++) {
@@ -17,10 +15,28 @@ for (let i = 0; i < args.length; i++) {
   } else if (args[i] === "--default-repo" && args[i + 1]) {
     config.defaultRepo = args[i + 1];
     i++;
+  } else if (args[i] === "--disabled-tools" && args[i + 1]) {
+    config.disabledTools = args[i + 1]
+      .split(",")
+      .map((tool) => tool.trim())
+      .filter((tool) => tool);
+    i++;
+  } else if (args[i] === "--allowed-tools" && args[i + 1]) {
+    config.allowedTools = args[i + 1]
+      .split(",")
+      .map((tool) => tool.trim())
+      .filter((tool) => tool);
+    i++;
+  } else if (args[i] === "--allowed-repos" && args[i + 1]) {
+    config.allowedRepos = args[i + 1]
+      .split(",")
+      .map((repo) => repo.trim())
+      .filter((repo) => repo);
+    i++;
   }
 }
 
-// Start the minimal OAuth server with config
+// Start the server with config
 async function main() {
   try {
     const { Server } = await import(
@@ -40,7 +56,7 @@ async function main() {
       ListToolsRequestSchema,
     };
 
-    const server = new GitHubMCPServerMinimalOAuth(config, sdkModules);
+    const server = new GitHubMCPServer(config, sdkModules);
     await server.run();
   } catch (error) {
     console.error("Server error:", error);

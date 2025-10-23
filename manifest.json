@@ -1,10 +1,10 @@
 {
   "manifest_version": "1.0",
-  "name": "github-docs-oauth",
-  "display_name": "GitHub Docs (OAuth)",
-  "version": "1.0.0",
-  "description": "Minimal MCP for GitHub documentation management with individual user attribution via OAuth",
-  "long_description": "A minimal Model Context Protocol server for managing GitHub documentation repositories. Uses OAuth user-to-server tokens for individual commit attribution - all commits show YOUR name, not a bot account. Provides 6 essential tools for docs-as-code workflows: create/update files, read files, list contents, delete files, search code, and list commits.",
+  "name": "github-docs-mcp",
+  "display_name": "GitHub Docs Manager",
+  "version": "2.0.0",
+  "description": "Manage GitHub documentation with personal commit attribution",
+  "long_description": "A minimal Model Context Protocol server for managing GitHub documentation repositories. All commits show YOUR name, not a bot account. Provides 6 essential tools for docs-as-code workflows: create/update files, read files, list contents, delete files, search code, and list commits.",
 
   "author": {
     "name": "CTO4",
@@ -67,11 +67,11 @@
 
   "server": {
     "type": "node",
-    "entry_point": "server-minimal-oauth.cjs",
+    "entry_point": "server.cjs",
     "mcp_config": {
       "command": "node",
       "args": [
-        "${__dirname}/server-minimal-oauth.cjs",
+        "${__dirname}/server.cjs",
         "--default-owner",
         "${user_config.default_owner}",
         "--default-repo",

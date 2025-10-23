@@ -1,6 +1,6 @@
-# GitHub Docs (OAuth) - Claude Desktop Extension
+# GitHub Docs Manager - Claude Desktop Extension
 
-**Minimal MCP for GitHub documentation management with individual user attribution**
+**Minimal MCP for GitHub documentation management with personal commit attribution**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org)
@@ -13,11 +13,11 @@ Perfect for **docs-as-code workflows** where proper attribution matters.
 
 ### Key Features
 
-✅ **Individual User Attribution** - Commits show your GitHub username, not a bot
-✅ **OAuth Authentication** - Secure user-to-server tokens (no PATs needed)
-✅ **Minimal & Fast** - Only 6 essential tools (92% smaller than full GitHub MCP)
+✅ **Personal Commit Attribution** - Commits show your GitHub username, not a bot
+✅ **Secure Authentication** - OAuth user-to-server tokens (no PATs needed)
+✅ **Minimal & Fast** - Only 6 essential tools (92% smaller than full GitHub MCPs)
 ✅ **One-Click Install** - No manual config file editing
-✅ **Works with Claude Desktop** - Seamless integration
+✅ **Seamless Integration** - Works with Claude Desktop out of the box
 
 ### The 6 Essential Tools
 
@@ -55,7 +55,7 @@ You need to create a GitHub OAuth App to enable secure authentication.
 
 ### Step 2: Install the Extension
 
-1. Download `github-docs-oauth-1.0.0.mcpb` from the [releases page](https://github.com/cto4ai/github-repos-manager-mcp/releases)
+1. Download `github-docs-mcp-2.0.0.mcpb` from the [releases page](https://github.com/cto4ai/github-repos-manager-mcp/releases)
 2. **Double-click** the .mcpb file (or drag it to Claude Desktop)
 3. Claude Desktop will prompt you for configuration:
    - **GitHub App Client ID:** Paste the Client ID from Step 1
@@ -364,9 +364,18 @@ npm run test:real-commit
 
 ## Changelog
 
+### Version 2.0.0 (October 2025)
+
+**Production Release**
+
+- Renamed from "GitHub Docs (OAuth)" to "GitHub Docs Manager"
+- Reorganized repository structure (legacy code archived)
+- Updated package naming for consistency
+- Production-ready MCPB packaging
+
 ### Version 1.0.0 (October 2025)
 
-**Initial Release**
+**Initial POC Release**
 
 - ✅ 6 essential tools for docs-as-code workflows
 - ✅ OAuth user-to-server authentication

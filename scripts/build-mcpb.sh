@@ -1,171 +1,127 @@
 #!/bin/bash
-
-# Build script for GitHub Docs OAuth MCPB package
-# Creates github-docs-oauth-1.0.0.mcpb
+# MCPB Build Script for GitHub Docs Manager v2.0.0
+# Creates a production-ready .mcpb package
 
 set -e  # Exit on error
 
-echo "🚀 Building GitHub Docs OAuth MCPB package..."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+BUILD_DIR="$PROJECT_ROOT/mcpb-build"
+PACKAGE_NAME="github-docs-mcp-2.0.0.mcpb"
+
+echo "=========================================="
+echo "Building GitHub Docs Manager MCPB Package"
+echo "=========================================="
 echo ""
 
-# Get script directory and project root
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-PROJECT_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
+# Step 1: Clean build directory
+echo "📦 Step 1: Cleaning build directory..."
+if [ -d "$BUILD_DIR" ]; then
+    rm -rf "$BUILD_DIR"
+fi
+mkdir -p "$BUILD_DIR"
+echo "✅ Build directory ready"
+echo ""
+
+# Step 2: Install production dependencies
+echo "📦 Step 2: Installing production dependencies..."
+cd "$PROJECT_ROOT"
+npm ci --production --quiet
+echo "✅ Production dependencies installed"
+echo ""
+
+# Step 3: Copy files to build directory
+echo "📦 Step 3: Copying files..."
+
+# Core files
+cp "$PROJECT_ROOT/manifest.json" "$BUILD_DIR/"
+cp "$PROJECT_ROOT/server.cjs" "$BUILD_DIR/"
+cp "$PROJECT_ROOT/package.json" "$BUILD_DIR/"
+cp "$PROJECT_ROOT/package-lock.json" "$BUILD_DIR/"
+
+# Copy README-MCPB.md as README.md
+cp "$PROJECT_ROOT/README-MCPB.md" "$BUILD_DIR/README.md"
+
+# Copy source directory
+cp -r "$PROJECT_ROOT/src" "$BUILD_DIR/"
+
+# Copy node_modules (production only)
+cp -r "$PROJECT_ROOT/node_modules" "$BUILD_DIR/"
+
+echo "✅ Files copied to build directory"
+echo ""
+
+# Step 4: Validate manifest
+echo "📦 Step 4: Validating manifest..."
+if node -e "
+const manifest = require('$BUILD_DIR/manifest.json');
+if (!manifest.name || !manifest.version || !manifest.display_name) {
+  console.error('Invalid manifest: missing required fields');
+  process.exit(1);
+}
+if (manifest.name !== 'github-docs-mcp') {
+  console.error('Invalid manifest: name should be github-docs-mcp');
+  process.exit(1);
+}
+if (manifest.version !== '2.0.0') {
+  console.error('Invalid manifest: version should be 2.0.0');
+  process.exit(1);
+}
+console.log('Manifest valid:');
+console.log('  Name:', manifest.name);
+console.log('  Display Name:', manifest.display_name);
+console.log('  Version:', manifest.version);
+"; then
+    echo "✅ Manifest validation passed"
+else
+    echo "❌ Manifest validation failed"
+    exit 1
+fi
+echo ""
+
+# Step 5: Verify entry point exists
+echo "📦 Step 5: Verifying entry point..."
+if [ ! -f "$BUILD_DIR/server.cjs" ]; then
+    echo "❌ Entry point server.cjs not found!"
+    exit 1
+fi
+echo "✅ Entry point exists"
+echo ""
+
+# Step 6: Create .mcpb archive
+echo "📦 Step 6: Creating .mcpb package..."
+cd "$BUILD_DIR"
+zip -r -q "../$PACKAGE_NAME" .
 cd "$PROJECT_ROOT"
 
-# Load configuration from .env file
-if [ ! -f ".env" ]; then
-  echo "❌ Error: .env file not found!"
-  echo "   Please create a .env file with:"
-  echo "   - GITHUB_CLIENT_ID"
-  echo "   - GITHUB_CLIENT_SECRET"
-  echo "   - GH_DEFAULT_OWNER (optional)"
-  echo "   - GH_DEFAULT_REPO (optional)"
-  exit 1
+if [ -f "$PROJECT_ROOT/$PACKAGE_NAME" ]; then
+    PACKAGE_SIZE=$(du -h "$PROJECT_ROOT/$PACKAGE_NAME" | cut -f1)
+    echo "✅ Package created: $PACKAGE_NAME ($PACKAGE_SIZE)"
+else
+    echo "❌ Package creation failed"
+    exit 1
 fi
-
-echo "📝 Loading configuration from .env file..."
-# Source the .env file
-set -a
-source .env
-set +a
-
-# Validate required values
-if [ -z "$GITHUB_CLIENT_ID" ]; then
-  echo "❌ Error: GITHUB_CLIENT_ID not set in .env"
-  exit 1
-fi
-
-if [ -z "$GITHUB_CLIENT_SECRET" ]; then
-  echo "❌ Error: GITHUB_CLIENT_SECRET not set in .env"
-  exit 1
-fi
-
-echo "   ✅ GitHub Client ID: ${GITHUB_CLIENT_ID:0:10}..."
-echo "   ✅ GitHub Client Secret: ***"
-if [ -n "$GH_DEFAULT_OWNER" ]; then
-  echo "   ✅ Default Owner: $GH_DEFAULT_OWNER"
-fi
-if [ -n "$GH_DEFAULT_REPO" ]; then
-  echo "   ✅ Default Repo: $GH_DEFAULT_REPO"
-fi
-echo ""
-
-# Configuration
-VERSION="1.0.0"
-PACKAGE_NAME="github-docs-oauth"
-BUILD_DIR="mcpb-build"
-OUTPUT_FILE="${PACKAGE_NAME}-${VERSION}.mcpb"
-
-# Clean previous build
-echo "🧹 Cleaning previous build..."
-rm -rf "$BUILD_DIR"
-rm -f "$OUTPUT_FILE"
-
-# Create build directory
-echo "📁 Creating build directory..."
-mkdir -p "$BUILD_DIR"
-
-# Step 1: Install production dependencies in a temp location
-echo "📦 Installing production dependencies..."
-echo "   (This may take a minute...)"
-npm ci --production --quiet
-
-# Step 2: Copy required files and inject config
-echo "📋 Copying files to build directory..."
-
-# Copy manifest and hardcode config values from .env
-echo "   Hardcoding config values into manifest.json..."
-node -e "
-const fs = require('fs');
-const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
-
-// Remove user_config entirely (hardcoding values instead)
-delete manifest.user_config;
-
-// Hardcode values directly into server.mcp_config
-manifest.server.mcp_config.env.GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
-manifest.server.mcp_config.env.GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
-
-// Update args to use hardcoded values instead of user_config references
-manifest.server.mcp_config.args = [
-  '\${__dirname}/server-minimal-oauth.cjs',
-  '--default-owner',
-  process.env.GH_DEFAULT_OWNER || '',
-  '--default-repo',
-  process.env.GH_DEFAULT_REPO || ''
-];
-
-fs.writeFileSync('$BUILD_DIR/manifest.json', JSON.stringify(manifest, null, 2));
-console.log('   ✅ Config values hardcoded into manifest.json');
-console.log('   ℹ️  No user input required - zero-config installation');
-"
-
-# Other core files
-cp server-minimal-oauth.cjs "$BUILD_DIR/"
-cp package.json "$BUILD_DIR/"
-cp package-lock.json "$BUILD_DIR/"
-cp README-MCPB.md "$BUILD_DIR/README.md"  # Rename for package
-cp LICENSE "$BUILD_DIR/" 2>/dev/null || echo "⚠️  No LICENSE file found (optional)"
-
-# Source code
-echo "   Copying src/ directory..."
-cp -r src/ "$BUILD_DIR/src/"
-
-# Dependencies
-echo "   Copying node_modules/ (this will take a moment)..."
-cp -r node_modules/ "$BUILD_DIR/node_modules/"
-
-# Step 3: Clean up build directory
-echo "🧹 Cleaning build directory..."
-# Remove dev dependencies that might have been included
-rm -rf "$BUILD_DIR/node_modules/@types" 2>/dev/null || true
-# Remove test files
-rm -f "$BUILD_DIR"/*.test.js 2>/dev/null || true
-# Remove any .git directories in dependencies
-find "$BUILD_DIR/node_modules" -name ".git" -type d -exec rm -rf {} + 2>/dev/null || true
-
-# Step 4: Create the .mcpb archive
-echo "📦 Creating .mcpb archive..."
-cd "$BUILD_DIR"
-zip -r "../$OUTPUT_FILE" . -q
-cd ..
-
-# Step 5: Calculate package size
-PACKAGE_SIZE=$(du -h "$OUTPUT_FILE" | cut -f1)
-echo ""
-echo "✅ Package built successfully!"
-echo ""
-echo "📊 Package Details:"
-echo "   Name:    $PACKAGE_NAME"
-echo "   Version: $VERSION"
-echo "   File:    $OUTPUT_FILE"
-echo "   Size:    $PACKAGE_SIZE"
-echo ""
-
-# Step 6: Verify package contents
-echo "📂 Package Contents:"
-unzip -l "$OUTPUT_FILE" | head -n 20
-echo "   ..."
-TOTAL_FILES=$(unzip -l "$OUTPUT_FILE" | grep -c "files")
 echo ""
 
 # Step 7: Restore dev dependencies
-echo "🔄 Restoring dev dependencies..."
-npm ci --quiet
+echo "📦 Step 7: Restoring dev dependencies..."
+npm install --quiet
+echo "✅ Dev dependencies restored"
+echo ""
 
+# Step 8: Show summary
+echo "=========================================="
+echo "✅ Build Complete!"
+echo "=========================================="
 echo ""
-echo "🎉 Build complete!"
+echo "Package: $PACKAGE_NAME"
+echo "Size: $PACKAGE_SIZE"
+echo "Location: $PROJECT_ROOT/$PACKAGE_NAME"
 echo ""
-echo "📋 Next Steps:"
-echo "   1. Test the package:"
-echo "      - Open Claude Desktop"
-echo "      - Double-click $OUTPUT_FILE"
-echo "      - Enter your GitHub OAuth App credentials"
-echo "      - Test the tools"
+echo "Next steps:"
+echo "1. Test the package: Double-click $PACKAGE_NAME"
+echo "2. Or install manually in Claude Desktop"
+echo "3. Configure with your GitHub OAuth credentials"
 echo ""
-echo "   2. If testing succeeds:"
-echo "      - Create a GitHub release (v$VERSION)"
-echo "      - Upload $OUTPUT_FILE to the release"
-echo "      - Update documentation"
+echo "Build artifacts in: $BUILD_DIR/"
 echo ""
