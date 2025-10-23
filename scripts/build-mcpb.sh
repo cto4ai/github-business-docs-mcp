@@ -1,13 +1,13 @@
 #!/bin/bash
-# MCPB Build Script for GitHub Docs Manager v2.0.0
-# Creates a production-ready .mcpb package
+# MCPB Build Script for GitHub Docs Manager v2.0.1
+# Creates a production-ready .mcpb package with zero-config installation
 
 set -e  # Exit on error
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 BUILD_DIR="$PROJECT_ROOT/mcpb-build"
-PACKAGE_NAME="github-docs-mcp-2.0.0.mcpb"
+PACKAGE_NAME="github-docs-mcp-2.0.1.mcpb"
 
 echo "=========================================="
 echo "Building GitHub Docs Manager MCPB Package"
@@ -51,6 +51,66 @@ cp -r "$PROJECT_ROOT/node_modules" "$BUILD_DIR/"
 echo "✅ Files copied to build directory"
 echo ""
 
+# Step 3.5: Inject hardcoded config from .env
+echo "📦 Step 3.5: Hardcoding config values from .env..."
+
+# Check for .env file
+if [ ! -f "$PROJECT_ROOT/.env" ]; then
+    echo "❌ Error: .env file not found!"
+    echo ""
+    echo "Create $PROJECT_ROOT/.env with:"
+    echo "  GITHUB_CLIENT_ID=Iv..."
+    echo "  GITHUB_CLIENT_SECRET=..."
+    echo "  GH_DEFAULT_OWNER=jack4git"
+    echo "  GH_DEFAULT_REPO=ai-first-docs-01"
+    echo ""
+    echo "See .env.template for example"
+    exit 1
+fi
+
+# Load .env
+set -a  # Export all variables
+source "$PROJECT_ROOT/.env"
+set +a
+
+# Validate required values
+if [ -z "$GITHUB_CLIENT_ID" ] || [ -z "$GITHUB_CLIENT_SECRET" ]; then
+    echo "❌ Error: GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET required in .env"
+    exit 1
+fi
+
+# Inject into manifest using Node
+node -e "
+const fs = require('fs');
+const manifest = JSON.parse(fs.readFileSync('$BUILD_DIR/manifest.json', 'utf8'));
+
+// Remove user_config entirely (zero-config installation)
+delete manifest.user_config;
+
+// Hardcode OAuth credentials directly in env
+manifest.server.mcp_config.env = {
+  GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET
+};
+
+// Hardcode default owner/repo in args (optional, can be empty)
+manifest.server.mcp_config.args = [
+  '\${__dirname}/server.cjs',
+  '--default-owner',
+  process.env.GH_DEFAULT_OWNER || '',
+  '--default-repo',
+  process.env.GH_DEFAULT_REPO || ''
+];
+
+fs.writeFileSync('$BUILD_DIR/manifest.json', JSON.stringify(manifest, null, 2));
+console.log('✅ Config hardcoded from .env');
+console.log('   Client ID:', process.env.GITHUB_CLIENT_ID);
+console.log('   Default Owner:', process.env.GH_DEFAULT_OWNER || '(not set)');
+console.log('   Default Repo:', process.env.GH_DEFAULT_REPO || '(not set)');
+console.log('   🎉 Zero-config installation - no user input required!');
+"
+echo ""
+
 # Step 4: Validate manifest
 echo "📦 Step 4: Validating manifest..."
 if node -e "
@@ -63,8 +123,8 @@ if (manifest.name !== 'github-docs-mcp') {
   console.error('Invalid manifest: name should be github-docs-mcp');
   process.exit(1);
 }
-if (manifest.version !== '2.0.0') {
-  console.error('Invalid manifest: version should be 2.0.0');
+if (manifest.version !== '2.0.1') {
+  console.error('Invalid manifest: version should be 2.0.1');
   process.exit(1);
 }
 console.log('Manifest valid:');
