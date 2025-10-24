@@ -3,8 +3,8 @@
   "name": "github-docs-mcp",
   "display_name": "GitHub Docs Manager",
   "version": "2.1.0",
-  "description": "Manage GitHub documentation with personal commit attribution",
-  "long_description": "A minimal Model Context Protocol server for managing GitHub documentation repositories. All commits show YOUR name, not a bot account. Provides 7 essential tools for docs-as-code workflows: create/update files, read files, list contents, delete files, search code, list commits, and get repository catalog.",
+  "description": "Manage business documents in GitHub with personal commit attribution",
+  "long_description": "A minimal Model Context Protocol server for managing business documents in GitHub repositories. All commits show YOUR name, not a bot account. Provides 7 essential tools: create/update files, read files, list contents, delete files, search code, list commits, and get repository catalog.",
 
   "author": {
     "name": "CTO4",

@@ -2,13 +2,13 @@
 
 **Minimal GitHub MCP with OAuth User Attribution**
 
-A context-efficient Model Context Protocol server for GitHub documentation workflows. Features OAuth authentication so commits show your name, not a bot account.
+A context-efficient Model Context Protocol server for managing business documents in GitHub repositories. Features OAuth authentication so commits show your name, not a bot account.
 
 ---
 
 ## Features
 
-✅ **7 Essential Tools** - Only what you need for docs-as-code workflows
+✅ **7 Essential Tools** - Manage policies, procedures, guides, and business content
 ✅ **OAuth User Attribution** - Commits show individual user names
 ✅ **93% Context Reduction** - ~750 tokens vs ~10,000 in full GitHub MCPs
 ✅ **Production Ready** - Tested and working with Claude Desktop
@@ -83,17 +83,17 @@ Start Claude Desktop. On first use:
 
 ## The 7 Tools
 
-Perfect for documentation workflows:
+Perfect for managing business documents:
 
 | Tool | Purpose |
 |------|---------|
-| `create_or_update_file` | Create new docs or update existing |
-| `get_file` | Read file contents |
-| `list_contents` | Browse directories |
-| `delete_file` | Remove outdated docs |
-| `search_code` | Find documentation |
-| `list_commits` | View revision history |
-| `get_repository_catalog` | Get complete repository document catalog |
+| `create_or_update_file` | Create new documents or update existing ones |
+| `get_file` | Read document contents |
+| `list_contents` | Browse folders and documents |
+| `delete_file` | Remove outdated documents |
+| `search_code` | Find content across all documents |
+| `list_commits` | View document revision history |
+| `get_repository_catalog` | Get complete inventory of all documents |
 
 ---
 
@@ -136,7 +136,7 @@ github-docs-mcp/
 **Benefits:**
 - Faster Claude loading
 - More context for your actual work
-- Focused on documentation workflows
+- Focused on business document management
 - Easier to understand and maintain
 
 ---
@@ -156,12 +156,12 @@ github-docs-mcp/
 ## Example Usage
 
 ```
-You: Create a README for our API documentation
+You: Create a Remote Work Policy document
 
-Claude: I'll create a README.md file for your API documentation.
+Claude: I'll create a remote-work-policy.md file for your business documents.
 [Creates file using create_or_update_file]
 
-✅ File created: README.md
+✅ File created: remote-work-policy.md
 Committed by: Your Name <your@email.com>
 ```
 
@@ -276,4 +276,4 @@ MIT
 - **Minimal OAuth Version:** Jack Ivers
 - **MCP Protocol:** Anthropic
 
-Built for docs-as-code workflows with individual user accountability.
+Built for managing business documents with individual user accountability.

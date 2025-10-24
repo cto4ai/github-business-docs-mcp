@@ -1,15 +1,15 @@
 # GitHub Docs Manager - Claude Desktop Extension
 
-**Minimal MCP for GitHub documentation management with personal commit attribution**
+**Minimal MCP for managing business documents in GitHub with personal commit attribution**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org)
 
 ## What is This?
 
-A **Claude Desktop Extension** that gives Claude the ability to manage your GitHub documentation repositories while ensuring **all commits show YOUR name**, not a bot account.
+A **Claude Desktop Extension** that gives Claude the ability to manage business documents in your GitHub repositories while ensuring **all commits show YOUR name**, not a bot account.
 
-Perfect for **docs-as-code workflows** where proper attribution matters.
+Perfect for managing **policies, procedures, guides, and business content** where proper attribution matters.
 
 ### Key Features
 

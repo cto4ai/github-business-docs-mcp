@@ -1,7 +1,7 @@
 {
   "name": "github-docs-mcp",
   "version": "2.1.0",
-  "description": "Minimal GitHub MCP server for documentation workflows with OAuth user attribution. 7 essential tools: create/update files, read files, list contents, delete files, search, commit history, and repository catalog.",
+  "description": "Minimal GitHub MCP server for managing business documents with OAuth user attribution. 7 essential tools: create/update files, read files, list contents, delete files, search, commit history, and repository catalog.",
   "main": "server.cjs",
   "scripts": {
     "start": "node server.cjs",
