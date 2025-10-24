@@ -22,11 +22,8 @@ const analyticsCache = new NodeCache({
 function getFromCache(key) {
   const value = analyticsCache.get(key);
   if (value) {
-    // Debug logging disabled to avoid JSON parsing issues in MCP clients
-    // console.log(`Cache HIT for key: ${key}`);
     return value;
   }
-  // console.log(`Cache MISS for key: ${key}`);
   return undefined;
 }
 
@@ -38,8 +35,6 @@ function getFromCache(key) {
  * @returns {boolean} True if the data was cached successfully.
  */
 function setToCache(key, value, ttl = DEFAULT_TTL) {
-  // Debug logging disabled to avoid JSON parsing issues in MCP clients
-  // console.log(`Setting cache for key: ${key} with TTL: ${ttl}s`);
   return analyticsCache.set(key, value, ttl);
 }
 
@@ -48,8 +43,6 @@ function setToCache(key, value, ttl = DEFAULT_TTL) {
  * @param {string} key - The cache key.
  */
 function deleteFromCache(key) {
-  // Debug logging disabled to avoid JSON parsing issues in MCP clients
-  // console.log(`Deleting cache for key: ${key}`);
   analyticsCache.del(key);
 }
 
@@ -57,8 +50,6 @@ function deleteFromCache(key) {
  * Flushes all data from cache.
  */
 function flushAllCache() {
-  // Debug logging disabled to avoid JSON parsing issues in MCP clients
-  // console.log("Flushing all analytics cache");
   analyticsCache.flushAll();
 }
 

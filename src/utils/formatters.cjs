@@ -8,7 +8,6 @@
  * @returns {object} Formatted traffic data.
  */
 function formatTrafficData(trafficData) {
-  // TODO: Implement actual formatting logic
   return {
     summary: `Total views: ${trafficData.views.count}, Unique visitors: ${trafficData.views.uniques}`,
     dailyViews: trafficData.views.map((view) => ({
@@ -16,7 +15,6 @@ function formatTrafficData(trafficData) {
       views: view.count,
       unique: view.uniques,
     })),
-    // Add more formatted data as needed
   };
 }
 
@@ -26,7 +24,6 @@ function formatTrafficData(trafficData) {
  * @returns {object} Formatted language data (e.g., for charts).
  */
 function formatLanguagesData(languagesData) {
-  // TODO: Implement actual formatting logic
   const totalBytes = Object.values(languagesData).reduce(
     (sum, bytes) => sum + bytes,
     0
@@ -47,8 +44,6 @@ function formatLanguagesData(languagesData) {
     breakdown,
   };
 }
-
-// Add more formatting functions as needed for other analytics data
 
 module.exports = {
   formatTrafficData,

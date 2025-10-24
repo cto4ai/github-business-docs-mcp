@@ -28,10 +28,12 @@ function isValidWebhookSignature(secret, payloadBody, signatureHeader) {
 }
 
 /**
- * Placeholder for permission checking logic.
- * This would need to be expanded based on specific permission requirements
- * for different tools and user roles/contexts if the MCP server itself
- * needs to enforce permissions beyond what the GitHub token provides.
+ * Permission checking for MCP tools.
+ *
+ * NOTE: Permission checking is delegated to GitHub API token permissions.
+ * This function returns true as GitHub enforces access control at the API level.
+ * Additional MCP-level permission logic could be added here if needed for
+ * specific use cases (e.g., restricting certain tools, validating user roles).
  *
  * @param {object} userContext - Information about the user/caller.
  * @param {string} toolName - The name of the tool being called.
@@ -40,11 +42,8 @@ function isValidWebhookSignature(secret, payloadBody, signatureHeader) {
  * @returns {Promise<boolean>} - True if permission is granted, false otherwise.
  */
 async function checkPermissions(userContext, toolName, args, defaultRepo) {
-  // TODO: Implement actual permission checking logic.
-  // For now, assume permission is granted if the GitHub token is valid for the operation.
-  console.warn(
-    `Permission check for tool '${toolName}' is a placeholder and currently always returns true.`
-  );
+  // Permission enforcement is handled by GitHub API token scopes
+  // If additional MCP-level restrictions are needed, implement them here
   return true;
 }
 

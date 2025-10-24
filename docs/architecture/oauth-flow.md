@@ -112,12 +112,32 @@ User sees standard GitHub authorization page:
 
 ## Setup Requirements
 
-### 1. GitHub App (One-Time Setup)
+### 1. GitHub OAuth Credentials (One-Time Setup)
 
-**Create GitHub App:**
+**Option A: OAuth App (Recommended - Simpler)**
+
+1. Go to: https://github.com/settings/developers
+2. Click **"OAuth Apps"** → **"New OAuth App"**
+3. Fill in:
+   - **Application name:** `docs-mcp-[yourname]` (any name you prefer)
+   - **Homepage URL:** `http://localhost:3000`
+   - **Authorization callback URL:** `http://localhost:3000/auth/callback`
+4. Click **"Register application"**
+5. Copy **Client ID** (starts with `Iv`)
+6. Click **"Generate a new client secret"**
+7. Copy **Client Secret**
+
+**Why OAuth App:**
+- ✅ Simpler setup (fewer fields)
+- ✅ No "installation" concept
+- ✅ Immediate access to user's repos after authorization
+- ✅ Perfect for OAuth Web Application Flow
+
+**Option B: GitHub App (Also Works - More Complex)**
+
 1. Go to: https://github.com/settings/apps/new
 2. Fill in:
-   - **Name:** `docs-mcp-[yourname]` (must be unique)
+   - **Name:** `docs-mcp-[yourname]` (must be globally unique)
    - **Homepage URL:** `http://localhost:3000`
    - **Callback URL:** `http://localhost:3000/auth/callback`
    - **Webhook:** Uncheck "Active"
@@ -127,18 +147,31 @@ User sees standard GitHub authorization page:
    - Account → Email addresses: Read-only
 4. **Install on:** Only on this account
 5. Click "Create GitHub App"
+6. Copy **Client ID** (in "About" section)
+7. Click **"Generate a new client secret"** and copy **Client Secret**
 
-**Save Credentials:**
-- App ID (shown at top)
-- Client ID (in "About" section)
-- Client Secret (click "Generate new client secret")
+**Why GitHub App:**
+- ✅ Additional features available (webhooks, events)
+- ✅ More robust for complex integrations
+- ❌ Requires "installation" on repositories
+- ❌ More setup steps
 
-**Install App on Repository:**
+**Both Options:**
+- Use the same OAuth Web Application Flow
+- Provide identical user authentication experience
+- Commits show individual user attribution
+- Browser-based authorization
+
+**If Using GitHub App (Option B Only):**
+
+After creating the GitHub App, you need to install it on your repository:
 1. Go to your GitHub App settings
 2. Click "Install App" (left sidebar)
 3. Click "Install" next to your account
 4. Select repositories you want to use
 5. Click "Install"
+
+**Note:** OAuth Apps (Option A) don't require installation - they automatically get access to repos when the user authorizes them.
 
 ### 2. Environment Configuration
 
