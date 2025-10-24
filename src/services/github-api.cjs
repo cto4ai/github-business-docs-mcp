@@ -955,14 +955,6 @@ class GitHubAPIService {
   // --- Placeholder Methods for Advanced Features ---
 
   async runCodeQualityChecks(owner, repo, tool_name, config_path) {
-    // Debug logging disabled to avoid MCP protocol interference
-    // console.log(
-    //   "Placeholder: GitHubAPIService.runCodeQualityChecks called with:",
-    //   owner,
-    //   repo,
-    //   tool_name,
-    //   config_path
-    // );
     // In a real implementation, this might involve:
     // - Triggering a GitHub Action that runs linters/scanners.
     // - Fetching results from a third-party code quality service API.
@@ -975,15 +967,6 @@ class GitHubAPIService {
   }
 
   async manageCustomDashboard(owner, repo, dashboard_id, action, settings) {
-    // Debug logging disabled to avoid MCP protocol interference
-    // console.log(
-    //   "Placeholder: GitHubAPIService.manageCustomDashboard called with:",
-    //   owner,
-    //   repo,
-    //   dashboard_id,
-    //   action,
-    //   settings
-    // );
     // This would likely involve interacting with a custom datastore or a
     // visualization service API, rather than directly with GitHub's primary API.
     // Or, it could involve fetching various GitHub stats and composing them.
@@ -995,14 +978,6 @@ class GitHubAPIService {
   }
 
   async generateAutomatedReport(owner, repo, report_type, output_format) {
-    // Debug logging disabled to avoid MCP protocol interference
-    // console.log(
-    //   "Placeholder: GitHubAPIService.generateAutomatedReport called with:",
-    //   owner,
-    //   repo,
-    //   report_type,
-    //   output_format
-    // );
     // This would involve:
     // - Fetching various data points from GitHub (issues, PRs, commits, traffic).
     // - Aggregating and formatting this data into the specified report_type and output_format.
@@ -1014,13 +989,6 @@ class GitHubAPIService {
   }
 
   async manageNotifications(action, thread_id, options = {}) {
-    // Debug logging disabled to avoid MCP protocol interference
-    // console.log(
-    //   "Placeholder: GitHubAPIService.manageNotifications called with:",
-    //   action,
-    //   thread_id,
-    //   options
-    // );
     // This would use GitHub's Notifications API.
     // Example for listing notifications:
     // const endpoint = `/notifications?all=${options.all}&participating=${options.participating}`;
@@ -1034,14 +1002,6 @@ class GitHubAPIService {
   }
 
   async manageRelease(owner, repo, action, releaseData = {}) {
-    // Debug logging disabled to avoid MCP protocol interference
-    // console.log(
-    //   "Placeholder: GitHubAPIService.manageRelease called with:",
-    //   owner,
-    //   repo,
-    //   action,
-    //   releaseData
-    // );
     // This would use GitHub's Releases API.
     // Examples:
     // List: GET /repos/{owner}/{repo}/releases
@@ -1062,14 +1022,6 @@ class GitHubAPIService {
   }
 
   async analyzeDependencies(owner, repo, report_type, depth) {
-    // Debug logging disabled to avoid MCP protocol interference
-    // console.log(
-    //   "Placeholder: GitHubAPIService.analyzeDependencies called with:",
-    //   owner,
-    //   repo,
-    //   report_type,
-    //   depth
-    // );
     // This could involve:
     // - Using GitHub's Dependency Graph API (GraphQL).
     // - Fetching dependency files (e.g., package.json, pom.xml) and analyzing them.

@@ -102,12 +102,12 @@ Copy the output and use it in the config.
       "command": "node",
       "args": [
         "/Users/jackivers/Projects/docs-as-code/github-repos-manager-mcp/server-minimal-oauth.cjs",
-        "--default-owner", "jack4git",
-        "--default-repo", "ai-first-docs-01"
+        "--default-owner", "your-github-username",
+        "--default-repo", "your-repo-name"
       ],
       "env": {
-        "GITHUB_CLIENT_ID": "Iv23li2I05ej935L0hdC",
-        "GITHUB_CLIENT_SECRET": "your_secret_here"
+        "GITHUB_CLIENT_ID": "your_oauth_app_client_id_here",
+        "GITHUB_CLIENT_SECRET": "your_oauth_app_client_secret_here"
       }
     }
   }

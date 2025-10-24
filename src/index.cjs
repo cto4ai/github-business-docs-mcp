@@ -37,7 +37,7 @@ class GitHubMCPServerMinimalOAuth {
     this.server = new this.Server(
       {
         name: "GitHub Docs MCP Server (Minimal + OAuth)",
-        version: "1.0.0",
+        version: "2.1.0",
       },
       {
         capabilities: {
@@ -133,18 +133,13 @@ class GitHubMCPServerMinimalOAuth {
 
           // Ensure we're authorized before handling tool calls
           if (!this.oauthService.isAuthenticated()) {
-            console.error('[DEBUG] Not authenticated, starting authorization...');
             await this.authorize();
-            console.error('[DEBUG] Authorization completed, this.api exists:', !!this.api);
           }
 
           // Verify API client exists
           if (!this.api) {
-            console.error('[DEBUG] CRITICAL: this.api is undefined after authorization!');
-            console.error('[DEBUG] Attempting to create API client manually...');
             const token = await this.getToken();
             this.api = new GitHubAPIService(token);
-            console.error('[DEBUG] API client created manually');
           }
 
           // Get fresh token (will auto-refresh if needed)

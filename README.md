@@ -19,20 +19,28 @@ A context-efficient Model Context Protocol server for GitHub documentation workf
 
 ## Quick Start
 
-### 1. Create GitHub OAuth App
+### 1. Create GitHub OAuth Credentials
 
-1. Go to [https://github.com/settings/apps/new](https://github.com/settings/apps/new)
-2. Fill in:
-   - **Name:** `docs-mcp-[yourname]`
+**Recommended: OAuth App (Simpler)**
+
+1. Go to [https://github.com/settings/developers](https://github.com/settings/developers)
+2. Click **"OAuth Apps"** → **"New OAuth App"**
+3. Fill in:
+   - **Application name:** `docs-mcp-[yourname]` (or any name you prefer)
    - **Homepage URL:** `http://localhost:3000`
-   - **Callback URL:** `http://localhost:3000/auth/callback`
-   - **Permissions:**
-     - Repository Contents: Read & Write
-     - Metadata: Read
-     - Email: Read
-3. Create the app and save:
-   - Client ID
-   - Client Secret
+   - **Authorization callback URL:** `http://localhost:3000/auth/callback`
+4. Click **"Register application"**
+5. Copy the **Client ID** (starts with `Iv`)
+6. Click **"Generate a new client secret"**
+7. Copy the **Client Secret** (you can only see it once!)
+
+**Alternative: GitHub App (Also Works)**
+
+GitHub Apps also work but require more setup. If you prefer:
+- Go to [https://github.com/settings/apps/new](https://github.com/settings/apps/new)
+- Use the app's Client ID and Client Secret for OAuth
+
+Both options provide identical OAuth user authentication.
 
 ### 2. Install Dependencies
 
@@ -188,10 +196,25 @@ GH_DEFAULT_REPO=your-repo
 
 ## Documentation
 
-- **[README_MINIMAL_OAUTH.md](README_MINIMAL_OAUTH.md)** - Complete OAuth setup guide
-- **[OAUTH_INTEGRATION.md](OAUTH_INTEGRATION.md)** - OAuth flow details
-- **[NEXT_STEPS.md](NEXT_STEPS.md)** - Development roadmap
-- **[legacy/](legacy/)** - Original 89-tool MCP (archived)
+### For Users
+
+- **[Main README](README.md)** - Getting started, installation, usage
+- **[MCPB Package Guide](README-MCPB.md)** - For .mcpb package installation
+
+### Architecture
+
+- **[OAuth Flow](docs/architecture/oauth-flow.md)** - How OAuth user attribution works
+  - Supports both OAuth Apps (recommended) and GitHub Apps
+- **[Document Catalog Design](docs/architecture/document-catalog-design.md)** - v2.1.0 catalog feature
+
+### Development
+
+- **[Testing Guide](docs/development/testing.md)** - How to test the MCP
+- **[MCPB Packaging](docs/development/mcpb-packaging.md)** - Building .mcpb packages
+
+### Legacy
+
+- **[legacy/](legacy/)** - Original 89-tool MCP (archived for reference)
 
 ---
 

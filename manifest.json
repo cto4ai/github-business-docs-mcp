@@ -108,6 +108,10 @@
     {
       "name": "list_commits",
       "description": "List commit history for the repository or a specific file"
+    },
+    {
+      "name": "get_repository_catalog",
+      "description": "Get complete repository document catalog in a single call"
     }
   ],
 
