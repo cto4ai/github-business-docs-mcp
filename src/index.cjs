@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
 // Minimal GitHub MCP Server for docs-as-code with OAuth
-// Provides only 6 essential tools with individual user attribution
+// Provides 7 essential tools with individual user attribution
 
 const GitHubAPIService = require("./services/github-api.cjs");
 const GitHubOAuthService = require("./services/oauth-service.cjs");
 const fileManagementMinimal = require("./handlers/file-management-minimal.cjs");
 const repositoryMinimal = require("./handlers/repository-minimal.cjs");
 const searchMinimal = require("./handlers/search-minimal.cjs");
+const documentCatalogMinimal = require("./handlers/document-catalog-minimal.cjs");
 const toolsConfigMinimal = require("./utils/tools-config-minimal.cjs");
 const { formatHandlerResponse } = require("./utils/response-formatter.cjs");
 const { handleError } = require("./utils/error-handler.cjs");
@@ -207,6 +208,15 @@ class GitHubMCPServerMinimalOAuth {
             // Search
             case "search_code":
               result = await searchMinimal.searchCodeHandler(
+                finalArgs,
+                defaults,
+                this.api
+              );
+              break;
+
+            // Document Catalog
+            case "get_repository_catalog":
+              result = await documentCatalogMinimal.getRepositoryCatalogHandler(
                 finalArgs,
                 defaults,
                 this.api

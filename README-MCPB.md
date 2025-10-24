@@ -15,11 +15,11 @@ Perfect for **docs-as-code workflows** where proper attribution matters.
 
 ✅ **Personal Commit Attribution** - Commits show your GitHub username, not a bot
 ✅ **Secure Authentication** - OAuth user-to-server tokens (no PATs needed)
-✅ **Minimal & Fast** - Only 6 essential tools (92% smaller than full GitHub MCPs)
+✅ **Minimal & Fast** - Only 7 essential tools (92% smaller than full GitHub MCPs)
 ✅ **One-Click Install** - No manual config file editing
 ✅ **Seamless Integration** - Works with Claude Desktop out of the box
 
-### The 6 Essential Tools
+### The 7 Essential Tools
 
 1. **create_or_update_file** - Create or update files in your repository
 2. **get_file** - Read file contents
@@ -27,6 +27,7 @@ Perfect for **docs-as-code workflows** where proper attribution matters.
 4. **delete_file** - Delete files from repository
 5. **search_code** - Search across repository code
 6. **list_commits** - View commit history
+7. **get_repository_catalog** - Get complete repository document catalog in a single call
 
 ---
 
@@ -255,8 +256,8 @@ Include:
 
 | Feature | Full GitHub MCP | This Extension |
 |---------|----------------|----------------|
-| **Tools** | 89 tools | 6 tools (focused) |
-| **Token Usage** | ~400K tokens | ~31K tokens (92% smaller) |
+| **Tools** | 89 tools | 7 tools (focused) |
+| **Token Usage** | ~10K tokens | ~750 tokens (92% smaller) |
 | **User Attribution** | ❌ Bot account | ✅ Your name |
 | **Setup** | Manual config | One-click install |
 | **Use Case** | Everything GitHub | Docs-as-code workflows |
@@ -363,6 +364,17 @@ npm run test:real-commit
 ---
 
 ## Changelog
+
+### Version 2.1.0 (October 2025)
+
+**Document Catalog Feature**
+
+- ✅ Added 7th tool: `get_repository_catalog`
+- ✅ Single-call repository document discovery using GitHub Tree API
+- ✅ In-memory catalog caching with 5-minute TTL
+- ✅ Returns tree structure, flat list, and statistics
+- ✅ 90% fewer API calls for document discovery
+- ✅ 68% fewer tokens for catalog results
 
 ### Version 2.0.0 (October 2025)
 

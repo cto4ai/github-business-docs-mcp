@@ -8,9 +8,9 @@ A context-efficient Model Context Protocol server for GitHub documentation workf
 
 ## Features
 
-✅ **6 Essential Tools** - Only what you need for docs-as-code workflows
+✅ **7 Essential Tools** - Only what you need for docs-as-code workflows
 ✅ **OAuth User Attribution** - Commits show individual user names
-✅ **93% Context Reduction** - ~650 tokens vs ~10,000 in full GitHub MCPs
+✅ **93% Context Reduction** - ~750 tokens vs ~10,000 in full GitHub MCPs
 ✅ **Production Ready** - Tested and working with Claude Desktop
 ✅ **No Hosting Required** - Localhost OAuth flow
 ✅ **Auto Token Refresh** - 8-hour tokens, automatic renewal
@@ -73,7 +73,7 @@ Start Claude Desktop. On first use:
 
 ---
 
-## The 6 Tools
+## The 7 Tools
 
 Perfect for documentation workflows:
 
@@ -85,6 +85,7 @@ Perfect for documentation workflows:
 | `delete_file` | Remove outdated docs |
 | `search_code` | Find documentation |
 | `list_commits` | View revision history |
+| `get_repository_catalog` | Get complete repository document catalog |
 
 ---
 
@@ -105,9 +106,10 @@ github-docs-mcp/
 │   ├── handlers/
 │   │   ├── file-management-minimal.cjs
 │   │   ├── repository-minimal.cjs
-│   │   └── search-minimal.cjs
+│   │   ├── search-minimal.cjs
+│   │   └── document-catalog-minimal.cjs
 │   └── utils/
-│       ├── tools-config-minimal.cjs  # 6 tool definitions
+│       ├── tools-config-minimal.cjs  # 7 tool definitions
 │       ├── error-handler.cjs
 │       └── response-formatter.cjs
 ├── legacy/                           # Original 89-tool MCP (archived)
@@ -118,10 +120,10 @@ github-docs-mcp/
 
 | Metric | Full MCP | This MCP | Reduction |
 |--------|----------|----------|-----------|
-| **Tools** | 89 | 6 | 93.3% |
-| **Config Lines** | 2,851 | 100 | 96.5% |
-| **Handler Lines** | 3,576 | 215 | 94.0% |
-| **Total Tokens** | ~10,000 | ~650 | 93.5% |
+| **Tools** | 89 | 7 | 92.1% |
+| **Config Lines** | 2,851 | 110 | 96.1% |
+| **Handler Lines** | 3,576 | 275 | 92.3% |
+| **Total Tokens** | ~10,000 | ~750 | 92.5% |
 
 **Benefits:**
 - Faster Claude loading
@@ -221,7 +223,13 @@ kill -9 [PID]
 
 ## Version History
 
-- **v2.0.0** (Current) - Minimal OAuth version promoted to primary
+- **v2.1.0** (Current) - Added document catalog feature
+  - 7 tools (added `get_repository_catalog`)
+  - Single-call repository document discovery
+  - In-memory catalog caching with 5-minute TTL
+  - 92.5% context reduction vs full GitHub MCPs
+
+- **v2.0.0** - Minimal OAuth version promoted to primary
   - 6 tools only
   - OAuth user attribution
   - Original 89-tool MCP moved to `/legacy`

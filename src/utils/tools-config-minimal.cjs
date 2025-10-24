@@ -91,12 +91,40 @@ const minimalToolsConfig = {
         path: { type: "string" }
       }
     }
+  },
+
+  // 7. Get repository catalog
+  get_repository_catalog: {
+    name: "get_repository_catalog",
+    description: "Get lightweight catalog of all documents in repository with metadata - single call returns entire document structure",
+    inputSchema: {
+      type: "object",
+      properties: {
+        owner: {
+          type: "string",
+          description: "Repository owner (optional, uses default)"
+        },
+        repo: {
+          type: "string",
+          description: "Repository name (optional, uses default)"
+        },
+        path: {
+          type: "string",
+          description: "Root path to catalog (optional, default: root)"
+        },
+        include_extensions: {
+          type: "array",
+          items: { type: "string" },
+          description: "File extensions to include (optional, default: ['.md', '.txt'])"
+        }
+      }
+    }
   }
 };
 
 module.exports = minimalToolsConfig;
 
 // Stats:
-// - Tools: 6 (down from 89) = 93% reduction
-// - Lines: ~100 (down from 2,851) = 96% reduction
-// - Estimated tokens: ~500-600 (down from ~10,000) = 94% reduction
+// - Tools: 7 (down from 89) = 92% reduction
+// - Lines: ~130 (down from 2,851) = 95% reduction
+// - Estimated tokens: ~750 (down from ~10,000) = 92% reduction
