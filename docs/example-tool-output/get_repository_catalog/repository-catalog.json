@@ -1,0 +1,604 @@
+{
+  "repository": "jack4git/ai-first-docs-01",
+  "scanned_path": "(root)",
+  "branch": "main",
+  "indexed_at": "2025-10-25T00:47:11.526Z",
+  "cache_expires_at": "2025-10-25T00:52:11.526Z",
+  "statistics": {
+    "total_files": 40,
+    "total_folders": 15,
+    "total_size_bytes": 235562,
+    "file_types": {
+      ".md": 40
+    },
+    "total_size_human": "230.04 KB"
+  },
+  "tree": {
+    ".claude": {
+      ".claude": [
+        {
+          "path": ".claude/SIMPLIFIED_DOCUMENT_ASSISTANT.md",
+          "name": "SIMPLIFIED_DOCUMENT_ASSISTANT.md",
+          "size": 7520,
+          "extension": ".md"
+        }
+      ]
+    },
+    ".github": {
+      "DOCUMENTATION": {
+        "DOCUMENTATION": [
+          {
+            "path": ".github/DOCUMENTATION/README.md",
+            "name": "README.md",
+            "size": 320,
+            "extension": ".md"
+          },
+          {
+            "path": ".github/DOCUMENTATION/ai-first-documentation-strategy.md",
+            "name": "ai-first-documentation-strategy.md",
+            "size": 19658,
+            "extension": ".md"
+          },
+          {
+            "path": ".github/DOCUMENTATION/docs-as-code-strategy.md",
+            "name": "docs-as-code-strategy.md",
+            "size": 23982,
+            "extension": ".md"
+          },
+          {
+            "path": ".github/DOCUMENTATION/setup-guide.md",
+            "name": "setup-guide.md",
+            "size": 40113,
+            "extension": ".md"
+          }
+        ]
+      },
+      "ISSUE_TEMPLATE": {
+        "ISSUE_TEMPLATE": [
+          {
+            "path": ".github/ISSUE_TEMPLATE/documentation-bug.md",
+            "name": "documentation-bug.md",
+            "size": 781,
+            "extension": ".md"
+          },
+          {
+            "path": ".github/ISSUE_TEMPLATE/documentation-request.md",
+            "name": "documentation-request.md",
+            "size": 1097,
+            "extension": ".md"
+          }
+        ]
+      },
+      "PULL_REQUEST_TEMPLATE": {
+        "PULL_REQUEST_TEMPLATE": [
+          {
+            "path": ".github/PULL_REQUEST_TEMPLATE/pull_request_template.md",
+            "name": "pull_request_template.md",
+            "size": 1326,
+            "extension": ".md"
+          }
+        ]
+      }
+    },
+    "(root)": [
+      {
+        "path": "CHANGELOG.md",
+        "name": "CHANGELOG.md",
+        "size": 1538,
+        "extension": ".md"
+      },
+      {
+        "path": "CLAUDE.md",
+        "name": "CLAUDE.md",
+        "size": 7230,
+        "extension": ".md"
+      },
+      {
+        "path": "CONTRIBUTING.md",
+        "name": "CONTRIBUTING.md",
+        "size": 3967,
+        "extension": ".md"
+      },
+      {
+        "path": "LICENSE.md",
+        "name": "LICENSE.md",
+        "size": 2037,
+        "extension": ".md"
+      },
+      {
+        "path": "README.md",
+        "name": "README.md",
+        "size": 4407,
+        "extension": ".md"
+      },
+      {
+        "path": "oauth-commit-test-1760836347945.md",
+        "name": "oauth-commit-test-1760836347945.md",
+        "size": 620,
+        "extension": ".md"
+      },
+      {
+        "path": "poc-test-1760797889400.md",
+        "name": "poc-test-1760797889400.md",
+        "size": 577,
+        "extension": ".md"
+      }
+    ],
+    "docs": {
+      "ai-operations-hub": {
+        "ai-operations-hub": [
+          {
+            "path": "docs/ai-operations-hub/README.md",
+            "name": "README.md",
+            "size": 4256,
+            "extension": ".md"
+          }
+        ]
+      },
+      "examples": {
+        "policies": {
+          "policies": [
+            {
+              "path": "docs/examples/policies/automobile-use-policy.md",
+              "name": "automobile-use-policy.md",
+              "size": 10460,
+              "extension": ".md"
+            },
+            {
+              "path": "docs/examples/policies/code-of-conduct.md",
+              "name": "code-of-conduct.md",
+              "size": 9637,
+              "extension": ".md"
+            },
+            {
+              "path": "docs/examples/policies/expense-reimbursement-policy.md",
+              "name": "expense-reimbursement-policy.md",
+              "size": 4467,
+              "extension": ".md"
+            },
+            {
+              "path": "docs/examples/policies/remote-work-policy.md",
+              "name": "remote-work-policy.md",
+              "size": 2870,
+              "extension": ".md"
+            },
+            {
+              "path": "docs/examples/policies/vacation-policy.md",
+              "name": "vacation-policy.md",
+              "size": 2415,
+              "extension": ".md"
+            },
+            {
+              "path": "docs/examples/policies/work-attire-policy.md",
+              "name": "work-attire-policy.md",
+              "size": 7821,
+              "extension": ".md"
+            }
+          ]
+        }
+      },
+      "guides": {
+        "guides": [
+          {
+            "path": "docs/guides/ai-documentation-workflows.md",
+            "name": "ai-documentation-workflows.md",
+            "size": 5871,
+            "extension": ".md"
+          }
+        ]
+      },
+      "policies": {
+        "policies": [
+          {
+            "path": "docs/policies/code-of-conduct.md",
+            "name": "code-of-conduct.md",
+            "size": 9128,
+            "extension": ".md"
+          },
+          {
+            "path": "docs/policies/expense-reimbursement-policy.md",
+            "name": "expense-reimbursement-policy.md",
+            "size": 4467,
+            "extension": ".md"
+          },
+          {
+            "path": "docs/policies/pets-in-office-policy.md",
+            "name": "pets-in-office-policy.md",
+            "size": 8925,
+            "extension": ".md"
+          },
+          {
+            "path": "docs/policies/remote-work-policy.md",
+            "name": "remote-work-policy.md",
+            "size": 2905,
+            "extension": ".md"
+          },
+          {
+            "path": "docs/policies/vacation-policy.md",
+            "name": "vacation-policy.md",
+            "size": 2415,
+            "extension": ".md"
+          }
+        ]
+      },
+      "prompts": {
+        "prompts": [
+          {
+            "path": "docs/prompts/README.md",
+            "name": "README.md",
+            "size": 3333,
+            "extension": ".md"
+          },
+          {
+            "path": "docs/prompts/doc-assistant-master.md",
+            "name": "doc-assistant-master.md",
+            "size": 2966,
+            "extension": ".md"
+          }
+        ],
+        "analysis": {
+          "analysis": [
+            {
+              "path": "docs/prompts/analysis/competitive-analysis.md",
+              "name": "competitive-analysis.md",
+              "size": 8878,
+              "extension": ".md"
+            }
+          ]
+        },
+        "coding": {
+          "coding": [
+            {
+              "path": "docs/prompts/coding/code-review.md",
+              "name": "code-review.md",
+              "size": 12138,
+              "extension": ".md"
+            }
+          ]
+        },
+        "doc-repo-related": {
+          "doc-repo-related": [
+            {
+              "path": "docs/prompts/doc-repo-related/coaxing.md",
+              "name": "coaxing.md",
+              "size": 179,
+              "extension": ".md"
+            },
+            {
+              "path": "docs/prompts/doc-repo-related/repo-access-instructions.md",
+              "name": "repo-access-instructions.md",
+              "size": 217,
+              "extension": ".md"
+            }
+          ]
+        },
+        "writing": {
+          "writing": [
+            {
+              "path": "docs/prompts/writing/executive-summary.md",
+              "name": "executive-summary.md",
+              "size": 4851,
+              "extension": ".md"
+            },
+            {
+              "path": "docs/prompts/writing/professional-email.md",
+              "name": "professional-email.md",
+              "size": 5343,
+              "extension": ".md"
+            }
+          ]
+        }
+      },
+      "templates": {
+        "templates": [
+          {
+            "path": "docs/templates/architecture-template.md",
+            "name": "architecture-template.md",
+            "size": 2039,
+            "extension": ".md"
+          },
+          {
+            "path": "docs/templates/policy-template.md",
+            "name": "policy-template.md",
+            "size": 784,
+            "extension": ".md"
+          },
+          {
+            "path": "docs/templates/procedure-template.md",
+            "name": "procedure-template.md",
+            "size": 1171,
+            "extension": ".md"
+          },
+          {
+            "path": "docs/templates/smart-policy-template.md",
+            "name": "smart-policy-template.md",
+            "size": 2853,
+            "extension": ".md"
+          }
+        ]
+      }
+    }
+  },
+  "flat_list": [
+    {
+      "path": ".claude/SIMPLIFIED_DOCUMENT_ASSISTANT.md",
+      "name": "SIMPLIFIED_DOCUMENT_ASSISTANT.md",
+      "size": 7520,
+      "extension": ".md",
+      "folder": ".claude"
+    },
+    {
+      "path": ".github/DOCUMENTATION/ai-first-documentation-strategy.md",
+      "name": "ai-first-documentation-strategy.md",
+      "size": 19658,
+      "extension": ".md",
+      "folder": ".github/DOCUMENTATION"
+    },
+    {
+      "path": ".github/DOCUMENTATION/docs-as-code-strategy.md",
+      "name": "docs-as-code-strategy.md",
+      "size": 23982,
+      "extension": ".md",
+      "folder": ".github/DOCUMENTATION"
+    },
+    {
+      "path": ".github/DOCUMENTATION/README.md",
+      "name": "README.md",
+      "size": 320,
+      "extension": ".md",
+      "folder": ".github/DOCUMENTATION"
+    },
+    {
+      "path": ".github/DOCUMENTATION/setup-guide.md",
+      "name": "setup-guide.md",
+      "size": 40113,
+      "extension": ".md",
+      "folder": ".github/DOCUMENTATION"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/documentation-bug.md",
+      "name": "documentation-bug.md",
+      "size": 781,
+      "extension": ".md",
+      "folder": ".github/ISSUE_TEMPLATE"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/documentation-request.md",
+      "name": "documentation-request.md",
+      "size": 1097,
+      "extension": ".md",
+      "folder": ".github/ISSUE_TEMPLATE"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE/pull_request_template.md",
+      "name": "pull_request_template.md",
+      "size": 1326,
+      "extension": ".md",
+      "folder": ".github/PULL_REQUEST_TEMPLATE"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "name": "CHANGELOG.md",
+      "size": 1538,
+      "extension": ".md",
+      "folder": "(root)"
+    },
+    {
+      "path": "CLAUDE.md",
+      "name": "CLAUDE.md",
+      "size": 7230,
+      "extension": ".md",
+      "folder": "(root)"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "name": "CONTRIBUTING.md",
+      "size": 3967,
+      "extension": ".md",
+      "folder": "(root)"
+    },
+    {
+      "path": "docs/ai-operations-hub/README.md",
+      "name": "README.md",
+      "size": 4256,
+      "extension": ".md",
+      "folder": "docs/ai-operations-hub"
+    },
+    {
+      "path": "docs/examples/policies/automobile-use-policy.md",
+      "name": "automobile-use-policy.md",
+      "size": 10460,
+      "extension": ".md",
+      "folder": "docs/examples/policies"
+    },
+    {
+      "path": "docs/examples/policies/code-of-conduct.md",
+      "name": "code-of-conduct.md",
+      "size": 9637,
+      "extension": ".md",
+      "folder": "docs/examples/policies"
+    },
+    {
+      "path": "docs/examples/policies/expense-reimbursement-policy.md",
+      "name": "expense-reimbursement-policy.md",
+      "size": 4467,
+      "extension": ".md",
+      "folder": "docs/examples/policies"
+    },
+    {
+      "path": "docs/examples/policies/remote-work-policy.md",
+      "name": "remote-work-policy.md",
+      "size": 2870,
+      "extension": ".md",
+      "folder": "docs/examples/policies"
+    },
+    {
+      "path": "docs/examples/policies/vacation-policy.md",
+      "name": "vacation-policy.md",
+      "size": 2415,
+      "extension": ".md",
+      "folder": "docs/examples/policies"
+    },
+    {
+      "path": "docs/examples/policies/work-attire-policy.md",
+      "name": "work-attire-policy.md",
+      "size": 7821,
+      "extension": ".md",
+      "folder": "docs/examples/policies"
+    },
+    {
+      "path": "docs/guides/ai-documentation-workflows.md",
+      "name": "ai-documentation-workflows.md",
+      "size": 5871,
+      "extension": ".md",
+      "folder": "docs/guides"
+    },
+    {
+      "path": "docs/policies/code-of-conduct.md",
+      "name": "code-of-conduct.md",
+      "size": 9128,
+      "extension": ".md",
+      "folder": "docs/policies"
+    },
+    {
+      "path": "docs/policies/expense-reimbursement-policy.md",
+      "name": "expense-reimbursement-policy.md",
+      "size": 4467,
+      "extension": ".md",
+      "folder": "docs/policies"
+    },
+    {
+      "path": "docs/policies/pets-in-office-policy.md",
+      "name": "pets-in-office-policy.md",
+      "size": 8925,
+      "extension": ".md",
+      "folder": "docs/policies"
+    },
+    {
+      "path": "docs/policies/remote-work-policy.md",
+      "name": "remote-work-policy.md",
+      "size": 2905,
+      "extension": ".md",
+      "folder": "docs/policies"
+    },
+    {
+      "path": "docs/policies/vacation-policy.md",
+      "name": "vacation-policy.md",
+      "size": 2415,
+      "extension": ".md",
+      "folder": "docs/policies"
+    },
+    {
+      "path": "docs/prompts/analysis/competitive-analysis.md",
+      "name": "competitive-analysis.md",
+      "size": 8878,
+      "extension": ".md",
+      "folder": "docs/prompts/analysis"
+    },
+    {
+      "path": "docs/prompts/coding/code-review.md",
+      "name": "code-review.md",
+      "size": 12138,
+      "extension": ".md",
+      "folder": "docs/prompts/coding"
+    },
+    {
+      "path": "docs/prompts/doc-assistant-master.md",
+      "name": "doc-assistant-master.md",
+      "size": 2966,
+      "extension": ".md",
+      "folder": "docs/prompts"
+    },
+    {
+      "path": "docs/prompts/doc-repo-related/coaxing.md",
+      "name": "coaxing.md",
+      "size": 179,
+      "extension": ".md",
+      "folder": "docs/prompts/doc-repo-related"
+    },
+    {
+      "path": "docs/prompts/doc-repo-related/repo-access-instructions.md",
+      "name": "repo-access-instructions.md",
+      "size": 217,
+      "extension": ".md",
+      "folder": "docs/prompts/doc-repo-related"
+    },
+    {
+      "path": "docs/prompts/README.md",
+      "name": "README.md",
+      "size": 3333,
+      "extension": ".md",
+      "folder": "docs/prompts"
+    },
+    {
+      "path": "docs/prompts/writing/executive-summary.md",
+      "name": "executive-summary.md",
+      "size": 4851,
+      "extension": ".md",
+      "folder": "docs/prompts/writing"
+    },
+    {
+      "path": "docs/prompts/writing/professional-email.md",
+      "name": "professional-email.md",
+      "size": 5343,
+      "extension": ".md",
+      "folder": "docs/prompts/writing"
+    },
+    {
+      "path": "docs/templates/architecture-template.md",
+      "name": "architecture-template.md",
+      "size": 2039,
+      "extension": ".md",
+      "folder": "docs/templates"
+    },
+    {
+      "path": "docs/templates/policy-template.md",
+      "name": "policy-template.md",
+      "size": 784,
+      "extension": ".md",
+      "folder": "docs/templates"
+    },
+    {
+      "path": "docs/templates/procedure-template.md",
+      "name": "procedure-template.md",
+      "size": 1171,
+      "extension": ".md",
+      "folder": "docs/templates"
+    },
+    {
+      "path": "docs/templates/smart-policy-template.md",
+      "name": "smart-policy-template.md",
+      "size": 2853,
+      "extension": ".md",
+      "folder": "docs/templates"
+    },
+    {
+      "path": "LICENSE.md",
+      "name": "LICENSE.md",
+      "size": 2037,
+      "extension": ".md",
+      "folder": "(root)"
+    },
+    {
+      "path": "oauth-commit-test-1760836347945.md",
+      "name": "oauth-commit-test-1760836347945.md",
+      "size": 620,
+      "extension": ".md",
+      "folder": "(root)"
+    },
+    {
+      "path": "poc-test-1760797889400.md",
+      "name": "poc-test-1760797889400.md",
+      "size": 577,
+      "extension": ".md",
+      "folder": "(root)"
+    },
+    {
+      "path": "README.md",
+      "name": "README.md",
+      "size": 4407,
+      "extension": ".md",
+      "folder": "(root)"
+    }
+  ]
+}
