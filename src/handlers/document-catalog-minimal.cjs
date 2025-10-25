@@ -16,13 +16,11 @@ const DocumentCatalogService = require("../services/document-catalog-service.cjs
  * @param {Object} apiService - GitHub API service instance
  * @returns {Promise<Object>} - Handler response
  */
-async function getRepositoryCatalogHandler(params, defaultRepo, apiService) {
+async function getRepositoryCatalogHandler(params, defaultRepo, apiService, serverConfig = {}) {
   try {
     // Extract parameters with defaults
     const owner = params.owner || defaultRepo.owner;
     const repo = params.repo || defaultRepo.repo;
-    const path = params.path || '';
-    const extensions = params.include_extensions || ['.md', '.txt'];
 
     // Validate required parameters
     if (!owner || !repo) {
@@ -32,15 +30,22 @@ async function getRepositoryCatalogHandler(params, defaultRepo, apiService) {
       };
     }
 
+    // Build options object for catalog service
+    const options = {
+      path: params.path || null,  // Tool parameter (highest priority)
+      extensions: params.include_extensions || null,
+      branch: params.branch || 'main',
+      serverDocroot: serverConfig.default_docroot || null  // Server default (lowest priority)
+    };
+
     // Create catalog service instance
-    const catalogService = new DocumentCatalogService(apiService);
+    const catalogService = new DocumentCatalogService(apiService, serverConfig);
 
     // Build catalog (will use cache if available)
     const catalog = await catalogService.buildCatalog(
       owner,
       repo,
-      path,
-      extensions
+      options
     );
 
     // Return success response

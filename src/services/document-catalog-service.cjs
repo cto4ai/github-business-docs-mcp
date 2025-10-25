@@ -3,27 +3,108 @@
 // Uses GitHub Tree API for single-call repository discovery
 
 class DocumentCatalogService {
-  constructor(githubApiService) {
+  constructor(githubApiService, serverConfig = {}) {
     this.api = githubApiService;
+    this.serverConfig = serverConfig;
     this.cache = new Map(); // In-memory cache: key -> { catalog, timestamp }
     this.TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
+  }
+
+  /**
+   * Load repository configuration from .mcp-config.json
+   * @param {string} owner - Repository owner
+   * @param {string} repo - Repository name
+   * @returns {Promise<Object>} - Config object or defaults
+   * @private
+   */
+  async loadRepoConfig(owner, repo) {
+    const cacheKey = `${owner}/${repo}/config`;
+    const cached = this.cache.get(cacheKey);
+
+    if (cached && (Date.now() - cached.timestamp) < this.TTL) {
+      return cached.config;
+    }
+
+    try {
+      const endpoint = `/repos/${owner}/${repo}/contents/.mcp-config.json`;
+      const response = await this.api.makeGitHubRequest(endpoint);
+
+      // Decode base64 content
+      const content = Buffer.from(response.content, 'base64').toString('utf-8');
+      const config = JSON.parse(content);
+
+      const repoConfig = {
+        docroot: config.mcp?.docroot || null,
+        include_extensions: config.mcp?.include_extensions || null
+      };
+
+      this.cache.set(cacheKey, {
+        config: repoConfig,
+        timestamp: Date.now()
+      });
+
+      return repoConfig;
+    } catch (error) {
+      // Config file doesn't exist - cache empty config
+      const emptyConfig = { docroot: null, include_extensions: null };
+      this.cache.set(cacheKey, {
+        config: emptyConfig,
+        timestamp: Date.now()
+      });
+      return emptyConfig;
+    }
+  }
+
+  /**
+   * Resolve effective docroot from priority hierarchy
+   * @param {string} owner - Repository owner
+   * @param {string} repo - Repository name
+   * @param {Object} options - Options object
+   * @returns {Promise<string>} - Effective docroot path
+   * @private
+   */
+  async resolveDocroot(owner, repo, options) {
+    // Priority 1: Tool parameter
+    if (options.path) return options.path;
+
+    // Priority 2: Repo config
+    const repoConfig = await this.loadRepoConfig(owner, repo);
+    if (repoConfig.docroot) return repoConfig.docroot;
+
+    // Priority 3: Server default
+    if (options.serverDocroot) return options.serverDocroot;
+
+    // Priority 4: Repository root
+    return '';
   }
 
   /**
    * Build catalog of all documents in repository
    * @param {string} owner - Repository owner
    * @param {string} repo - Repository name
-   * @param {string} path - Root path to catalog (default: '')
-   * @param {string[]} extensions - File extensions to include (default: ['.md', '.txt'])
-   * @param {string} branch - Branch name (default: main/master)
+   * @param {Object} options - Catalog options
+   * @param {string} options.path - Root path to catalog (optional)
+   * @param {string[]} options.extensions - File extensions to include (optional)
+   * @param {string} options.branch - Branch name (optional, default: main/master)
+   * @param {string} options.serverDocroot - Server-level default docroot (optional)
    * @returns {Promise<Object>} - Document catalog
    */
-  async buildCatalog(owner, repo, path = '', extensions = ['.md', '.txt'], branch = 'main') {
+  async buildCatalog(owner, repo, options = {}) {
+    // Resolve effective docroot from priority hierarchy
+    const docroot = await this.resolveDocroot(owner, repo, options);
+
     // Check cache first
-    const cached = this.getCachedCatalog(owner, repo, path);
+    const cached = this.getCachedCatalog(owner, repo, docroot);
     if (cached) {
       return cached;
     }
+
+    // Load repo config for extensions
+    const repoConfig = await this.loadRepoConfig(owner, repo);
+
+    // Determine final extensions
+    const extensions = options.extensions || repoConfig.include_extensions || ['.md', '.txt'];
+    const branch = options.branch || 'main';
 
     try {
       // Get default branch if 'main' doesn't work
@@ -34,37 +115,32 @@ class DocumentCatalogService {
       const treeData = await this.fetchRepositoryTree(owner, repo, treeBranch);
 
       // Filter tree to only include document files
-      const documentFiles = this.filterDocumentFiles(treeData.tree, path, extensions);
+      const documentFiles = this.filterDocumentFiles(treeData.tree, docroot, extensions);
 
-      // Build tree structure (hierarchical)
-      const tree = this.buildTreeStructure(documentFiles, path);
-
-      // Build flat list (linear array)
-      const flatList = this.buildFlatList(documentFiles, path);
+      // Build flat list (linear array) - minimal format
+      const flatList = this.buildFlatList(documentFiles);
 
       // Calculate statistics
       const statistics = this.calculateStatistics(documentFiles, extensions);
 
-      // Build final catalog
+      // Build final catalog (v3.0.0 format)
       const catalog = {
         repository: `${owner}/${repo}`,
-        scanned_path: path || '(root)',
         branch: treeBranch,
-        indexed_at: new Date().toISOString(),
+        docroot: docroot || '(root)',
         cache_expires_at: new Date(Date.now() + this.TTL).toISOString(),
         statistics,
-        tree,
-        flat_list: flatList
+        files: flatList  // Renamed from flat_list
       };
 
       // Cache the catalog
-      this.setCatalog(owner, repo, path, catalog);
+      this.setCatalog(owner, repo, docroot, catalog);
 
       return catalog;
     } catch (error) {
       // Try 'master' branch if 'main' failed
       if (branch === 'main' && error.message.includes('404')) {
-        return this.buildCatalog(owner, repo, path, extensions, 'master');
+        return this.buildCatalog(owner, repo, { ...options, branch: 'master' });
       }
       throw new Error(`Failed to build catalog: ${error.message}`);
     }
@@ -117,98 +193,30 @@ class DocumentCatalogService {
   }
 
   /**
-   * Build hierarchical tree structure from flat file list
+   * Build flat list from file array (minimal format - v3.0.0)
    * @private
    */
-  buildTreeStructure(files, basePath) {
-    const tree = {};
-
-    files.forEach(file => {
-      // Remove base path if present
-      let relativePath = file.path;
-      if (basePath) {
-        relativePath = file.path.substring(basePath.length);
-        if (relativePath.startsWith('/')) {
-          relativePath = relativePath.substring(1);
-        }
-      }
-
-      const parts = relativePath.split('/');
-      let current = tree;
-
-      // Navigate/create nested structure
-      for (let i = 0; i < parts.length - 1; i++) {
-        const folder = parts[i];
-        if (!current[folder]) {
-          current[folder] = {};
-        }
-        current = current[folder];
-      }
-
-      // Add file to appropriate folder
-      const fileName = parts[parts.length - 1];
-      const folderName = parts.length > 1 ? parts[parts.length - 2] : '(root)';
-
-      if (!current[folderName]) {
-        current[folderName] = [];
-      }
-
-      // Ensure it's an array before pushing
-      if (!Array.isArray(current[folderName])) {
-        const temp = current[folderName];
-        current[folderName] = [];
-        // If there was nested structure, preserve it
-        if (typeof temp === 'object') {
-          Object.keys(temp).forEach(key => {
-            current[key] = temp[key];
-          });
-        }
-      }
-
-      current[folderName].push({
-        path: file.path,
-        name: file.name,
-        size: file.size,
-        extension: file.extension
-      });
-    });
-
-    return tree;
+  buildFlatList(files) {
+    return files.map(file => ({
+      path: file.path,
+      size: file.size
+    })).sort((a, b) => a.path.localeCompare(b.path));
   }
 
   /**
-   * Build flat list from file array
-   * @private
-   */
-  buildFlatList(files, basePath) {
-    return files.map(file => {
-      const pathParts = file.path.split('/');
-      const folder = pathParts.length > 1
-        ? pathParts.slice(0, -1).join('/')
-        : '(root)';
-
-      return {
-        path: file.path,
-        name: file.name,
-        size: file.size,
-        extension: file.extension,
-        folder: folder
-      };
-    }).sort((a, b) => a.path.localeCompare(b.path));
-  }
-
-  /**
-   * Calculate statistics for catalog
+   * Calculate statistics for catalog (v3.0.0 minimal format)
    * @private
    */
   calculateStatistics(files, extensions) {
+    const totalBytes = files.reduce((sum, f) => sum + (f.size || 0), 0);
+
     const stats = {
       total_files: files.length,
       total_folders: new Set(files.map(f => {
         const parts = f.path.split('/');
         return parts.length > 1 ? parts.slice(0, -1).join('/') : '(root)';
       })).size,
-      total_size_bytes: files.reduce((sum, f) => sum + (f.size || 0), 0),
+      total_size: this.formatBytes(totalBytes),
       file_types: {}
     };
 
@@ -219,9 +227,6 @@ class DocumentCatalogService {
         stats.file_types[ext] = count;
       }
     });
-
-    // Add human-readable size
-    stats.total_size_human = this.formatBytes(stats.total_size_bytes);
 
     return stats;
   }
