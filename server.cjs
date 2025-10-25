@@ -17,6 +17,9 @@ for (let i = 0; i < args.length; i++) {
   } else if (args[i] === "--default-repo" && args[i + 1]) {
     config.defaultRepo = args[i + 1];
     i++;
+  } else if (args[i] === "--default-docroot" && args[i + 1]) {
+    config.defaultDocroot = args[i + 1];
+    i++;
   }
 }
 

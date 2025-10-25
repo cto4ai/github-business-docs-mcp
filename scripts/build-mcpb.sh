@@ -1,5 +1,5 @@
 #!/bin/bash
-# MCPB Build Script for GitHub Docs Manager v2.1.0
+# MCPB Build Script for GitHub Docs Manager v3.0.0
 # Creates a production-ready .mcpb package with zero-config installation
 
 set -e  # Exit on error
@@ -7,7 +7,7 @@ set -e  # Exit on error
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 BUILD_DIR="$PROJECT_ROOT/mcpb-build"
-PACKAGE_NAME="github-docs-mcp-2.1.0.mcpb"
+PACKAGE_NAME="github-docs-mcp-3.0.0.mcpb"
 
 echo "=========================================="
 echo "Building GitHub Docs Manager MCPB Package"
@@ -93,13 +93,15 @@ manifest.server.mcp_config.env = {
   GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET
 };
 
-// Hardcode default owner/repo in args (optional, can be empty)
+// Hardcode default owner/repo/docroot in args (optional, can be empty)
 manifest.server.mcp_config.args = [
   '\${__dirname}/server.cjs',
   '--default-owner',
   process.env.GH_DEFAULT_OWNER || '',
   '--default-repo',
-  process.env.GH_DEFAULT_REPO || ''
+  process.env.GH_DEFAULT_REPO || '',
+  '--default-docroot',
+  process.env.GH_DEFAULT_DOCROOT || ''
 ];
 
 fs.writeFileSync('$BUILD_DIR/manifest.json', JSON.stringify(manifest, null, 2));
@@ -107,6 +109,7 @@ console.log('✅ Config hardcoded from .env');
 console.log('   Client ID:', process.env.GITHUB_CLIENT_ID);
 console.log('   Default Owner:', process.env.GH_DEFAULT_OWNER || '(not set)');
 console.log('   Default Repo:', process.env.GH_DEFAULT_REPO || '(not set)');
+console.log('   Default Docroot:', process.env.GH_DEFAULT_DOCROOT || '(not set)');
 console.log('   🎉 Zero-config installation - no user input required!');
 "
 echo ""
@@ -123,8 +126,8 @@ if (manifest.name !== 'github-docs-mcp') {
   console.error('Invalid manifest: name should be github-docs-mcp');
   process.exit(1);
 }
-if (manifest.version !== '2.1.0') {
-  console.error('Invalid manifest: version should be 2.1.0');
+if (manifest.version !== '3.0.0') {
+  console.error('Invalid manifest: version should be 3.0.0');
   process.exit(1);
 }
 console.log('Manifest valid:');

@@ -2,7 +2,7 @@
   "manifest_version": "1.0",
   "name": "github-docs-mcp",
   "display_name": "GitHub Docs Manager",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Manage business documents in GitHub with personal commit attribution",
   "long_description": "A minimal Model Context Protocol server for managing business documents in GitHub repositories. All commits show YOUR name, not a bot account. Provides 7 essential tools: create/update files, read files, list contents, delete files, search code, list commits, and get repository catalog.",
 
@@ -62,6 +62,13 @@
       "description": "Default repository name (e.g., 'ai-first-docs-01')",
       "required": false,
       "sensitive": false
+    },
+    "default_docroot": {
+      "type": "string",
+      "title": "Default Document Root",
+      "description": "Default subfolder to scan for documents (e.g., 'docs'). Leave empty to scan entire repository.",
+      "required": false,
+      "sensitive": false
     }
   },
 
@@ -75,7 +82,9 @@
         "--default-owner",
         "${user_config.default_owner}",
         "--default-repo",
-        "${user_config.default_repo}"
+        "${user_config.default_repo}",
+        "--default-docroot",
+        "${user_config.default_docroot}"
       ],
       "env": {
         "GITHUB_CLIENT_ID": "${user_config.github_client_id}",
@@ -85,6 +94,10 @@
   },
 
   "tools": [
+    {
+      "name": "get_repository_catalog",
+      "description": "Get minimal catalog of repository documents. Respects docroot configuration to limit scope. Returns flat file list only (no tree structure)."
+    },
     {
       "name": "create_or_update_file",
       "description": "Create or update a file in the GitHub repository"
@@ -108,10 +121,6 @@
     {
       "name": "list_commits",
       "description": "List commit history for the repository or a specific file"
-    },
-    {
-      "name": "get_repository_catalog",
-      "description": "Get complete repository document catalog in a single call"
     }
   ],
 

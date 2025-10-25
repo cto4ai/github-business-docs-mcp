@@ -22,6 +22,7 @@ class GitHubMCPServerMinimalOAuth {
 
     this.defaultOwner = null;
     this.defaultRepo = null;
+    this.defaultDocroot = null;
     this.oauthService = null;
 
     // Initialize OAuth service
@@ -33,11 +34,12 @@ class GitHubMCPServerMinimalOAuth {
     // Set default repository from config or environment
     this.defaultOwner = config.defaultOwner || process.env.GH_DEFAULT_OWNER;
     this.defaultRepo = config.defaultRepo || process.env.GH_DEFAULT_REPO;
+    this.defaultDocroot = config.defaultDocroot || process.env.GH_DEFAULT_DOCROOT || '';
 
     this.server = new this.Server(
       {
         name: "GitHub Docs MCP Server (Minimal + OAuth)",
-        version: "2.1.0",
+        version: "3.0.0",
       },
       {
         capabilities: {
@@ -90,6 +92,12 @@ class GitHubMCPServerMinimalOAuth {
     return {
       owner: this.defaultOwner,
       repo: this.defaultRepo,
+    };
+  }
+
+  getServerConfig() {
+    return {
+      default_docroot: this.defaultDocroot,
     };
   }
 
@@ -214,7 +222,8 @@ class GitHubMCPServerMinimalOAuth {
               result = await documentCatalogMinimal.getRepositoryCatalogHandler(
                 finalArgs,
                 defaults,
-                this.api
+                this.api,
+                this.getServerConfig()
               );
               break;
 
