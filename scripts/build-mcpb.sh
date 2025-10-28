@@ -126,8 +126,8 @@ if (manifest.name !== 'github-docs-mcp') {
   console.error('Invalid manifest: name should be github-docs-mcp');
   process.exit(1);
 }
-if (manifest.version !== '3.0.1') {
-  console.error('Invalid manifest: version should be 3.0.1');
+if (manifest.version !== '4.0.0') {
+  console.error('Invalid manifest: version should be 4.0.0');
   process.exit(1);
 }
 console.log('Manifest valid:');
