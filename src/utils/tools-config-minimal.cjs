@@ -14,7 +14,11 @@ const minimalToolsConfig = {
         repo: { type: "string" },
         path: { type: "string" },
         content: { type: "string" },
-        message: { type: "string" }
+        message: { type: "string" },
+        ignore_docroot: {
+          type: "boolean",
+          description: "Set to true to bypass docroot restrictions and access the entire repository"
+        }
       },
       required: ["path", "content", "message"]
     }
@@ -29,7 +33,11 @@ const minimalToolsConfig = {
       properties: {
         owner: { type: "string" },
         repo: { type: "string" },
-        path: { type: "string" }
+        path: { type: "string" },
+        ignore_docroot: {
+          type: "boolean",
+          description: "Set to true to bypass docroot restrictions and access the entire repository"
+        }
       },
       required: ["path"]
     }
@@ -44,7 +52,11 @@ const minimalToolsConfig = {
       properties: {
         owner: { type: "string" },
         repo: { type: "string" },
-        path: { type: "string" }
+        path: { type: "string" },
+        ignore_docroot: {
+          type: "boolean",
+          description: "Set to true to bypass docroot restrictions and access the entire repository"
+        }
       }
     }
   },
@@ -59,7 +71,11 @@ const minimalToolsConfig = {
         owner: { type: "string" },
         repo: { type: "string" },
         path: { type: "string" },
-        message: { type: "string" }
+        message: { type: "string" },
+        ignore_docroot: {
+          type: "boolean",
+          description: "Set to true to bypass docroot restrictions and access the entire repository"
+        }
       },
       required: ["path", "message"]
     }
@@ -73,7 +89,11 @@ const minimalToolsConfig = {
       type: "object",
       properties: {
         query: { type: "string" },
-        repo: { type: "string" }
+        repo: { type: "string" },
+        ignore_docroot: {
+          type: "boolean",
+          description: "Set to true to bypass docroot restrictions and search the entire repository"
+        }
       },
       required: ["query"]
     }
@@ -88,7 +108,11 @@ const minimalToolsConfig = {
       properties: {
         owner: { type: "string" },
         repo: { type: "string" },
-        path: { type: "string" }
+        path: { type: "string" },
+        ignore_docroot: {
+          type: "boolean",
+          description: "Set to true to bypass docroot restrictions and access the entire repository"
+        }
       }
     }
   },
@@ -116,6 +140,10 @@ const minimalToolsConfig = {
           type: "array",
           items: { type: "string" },
           description: "File extensions to include (optional, default: ['.md', '.txt'])"
+        },
+        ignore_docroot: {
+          type: "boolean",
+          description: "Set to true to bypass docroot restrictions and catalog the entire repository"
         }
       }
     }
