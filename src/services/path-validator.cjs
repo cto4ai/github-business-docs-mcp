@@ -25,6 +25,23 @@ class PathValidator {
   }
 
   /**
+   * Check if path contains any dot-file/folder components
+   * Files/folders starting with "." are hidden system files (e.g., .git, .github, .gitignore)
+   * @param {string} path - Path to check
+   * @returns {boolean} - True if path contains dot components
+   */
+  static hasDotComponents(path) {
+    if (!path) return false;
+
+    // Check if path starts with "."
+    if (path.startsWith('.')) return true;
+
+    // Check if any path component starts with "."
+    const parts = path.split('/').filter(p => p !== '');
+    return parts.some(part => part.startsWith('.'));
+  }
+
+  /**
    * Normalize path for comparison
    * @param {string} path - File or directory path
    * @returns {string} - Normalized path
@@ -87,13 +104,23 @@ class PathValidator {
    * @param {string} docroot - Configured docroot
    * @param {Object} options - Validation options
    * @param {boolean} options.ignore_docroot - Whether to bypass docroot restrictions
+   * @param {boolean} options.allow_dotfiles - Whether to allow access to hidden system files
    * @param {string} options.operation - Operation name (for error messages)
    * @returns {Object} - { valid: boolean, error: string|null, reason: string|null }
    */
   static validatePath(path, docroot, options = {}) {
-    const { ignore_docroot = false, operation = 'access' } = options;
+    const { ignore_docroot = false, allow_dotfiles = false, operation = 'access' } = options;
 
-    // Check if enforcement applies
+    // Check 1: Dot-file filtering (runs BEFORE docroot check)
+    if (!allow_dotfiles && this.hasDotComponents(path)) {
+      return {
+        valid: false,
+        error: `Cannot ${operation} '${path}': Hidden system files (starting with '.') are not accessible. These files contain technical configuration and are managed separately.`,
+        reason: 'dotfile_blocked'
+      };
+    }
+
+    // Check 2: Docroot enforcement
     if (!this.shouldEnforceDocroot(docroot, ignore_docroot)) {
       return { valid: true, error: null, reason: null };
     }

@@ -18,6 +18,10 @@ const minimalToolsConfig = {
         ignore_docroot: {
           type: "boolean",
           description: "Set to true to bypass docroot restrictions and access the entire repository"
+        },
+        allow_dotfiles: {
+          type: "boolean",
+          description: "Allow access to hidden system files (starting with '.')"
         }
       },
       required: ["path", "content", "message"]
@@ -37,6 +41,10 @@ const minimalToolsConfig = {
         ignore_docroot: {
           type: "boolean",
           description: "Set to true to bypass docroot restrictions and access the entire repository"
+        },
+        allow_dotfiles: {
+          type: "boolean",
+          description: "Allow access to hidden system files (starting with '.')"
         }
       },
       required: ["path"]
@@ -56,6 +64,10 @@ const minimalToolsConfig = {
         ignore_docroot: {
           type: "boolean",
           description: "Set to true to bypass docroot restrictions and access the entire repository"
+        },
+        allow_dotfiles: {
+          type: "boolean",
+          description: "Allow access to hidden system files (starting with '.')"
         }
       }
     }
@@ -75,6 +87,10 @@ const minimalToolsConfig = {
         ignore_docroot: {
           type: "boolean",
           description: "Set to true to bypass docroot restrictions and access the entire repository"
+        },
+        allow_dotfiles: {
+          type: "boolean",
+          description: "Allow access to hidden system files (starting with '.')"
         }
       },
       required: ["path", "message"]
@@ -93,6 +109,10 @@ const minimalToolsConfig = {
         ignore_docroot: {
           type: "boolean",
           description: "Set to true to bypass docroot restrictions and search the entire repository"
+        },
+        allow_dotfiles: {
+          type: "boolean",
+          description: "Allow access to hidden system files (starting with '.')"
         }
       },
       required: ["query"]
@@ -112,6 +132,10 @@ const minimalToolsConfig = {
         ignore_docroot: {
           type: "boolean",
           description: "Set to true to bypass docroot restrictions and access the entire repository"
+        },
+        allow_dotfiles: {
+          type: "boolean",
+          description: "Allow access to hidden system files (starting with '.')"
         }
       }
     }
@@ -144,6 +168,10 @@ const minimalToolsConfig = {
         ignore_docroot: {
           type: "boolean",
           description: "Set to true to bypass docroot restrictions and catalog the entire repository"
+        },
+        allow_dotfiles: {
+          type: "boolean",
+          description: "Allow access to hidden system files (starting with '.')"
         }
       }
     }
