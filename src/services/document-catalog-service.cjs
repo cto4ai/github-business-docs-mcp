@@ -11,6 +11,29 @@ class DocumentCatalogService {
   }
 
   /**
+   * Normalize docroot value to handle special cases
+   * @param {string|undefined} value - Docroot value from config
+   * @returns {string|null} - Normalized docroot or null if not set
+   * @private
+   */
+  normalizeDocroot(value) {
+    // undefined = not set in config, use server default
+    if (value === undefined) return null;
+
+    // Normalize root directory indicators to empty string
+    if (value === '.' || value === '/' || value === './') {
+      return '';
+    }
+
+    // Remove trailing slashes for consistency
+    if (typeof value === 'string' && value.endsWith('/')) {
+      return value.slice(0, -1);
+    }
+
+    return value;
+  }
+
+  /**
    * Load repository configuration from .mcp-config.json
    * @param {string} owner - Repository owner
    * @param {string} repo - Repository name
@@ -34,7 +57,7 @@ class DocumentCatalogService {
       const config = JSON.parse(content);
 
       const repoConfig = {
-        docroot: config.mcp?.docroot || null,
+        docroot: this.normalizeDocroot(config.mcp?.docroot),
         include_extensions: config.mcp?.include_extensions || null
       };
 
@@ -69,7 +92,7 @@ class DocumentCatalogService {
 
     // Priority 2: Repo config
     const repoConfig = await this.loadRepoConfig(owner, repo);
-    if (repoConfig.docroot) return repoConfig.docroot;
+    if (repoConfig.docroot !== null) return repoConfig.docroot;
 
     // Priority 3: Server default
     if (options.serverDocroot) return options.serverDocroot;
