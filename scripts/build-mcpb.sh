@@ -1,5 +1,5 @@
 #!/bin/bash
-# MCPB Build Script for GitHub Docs Manager v3.0.1
+# MCPB Build Script for GitHub Docs Manager v4.0.0
 # Creates a production-ready .mcpb package with zero-config installation
 
 set -e  # Exit on error
@@ -7,7 +7,7 @@ set -e  # Exit on error
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 BUILD_DIR="$PROJECT_ROOT/mcpb-build"
-PACKAGE_NAME="github-docs-mcp-3.0.1.mcpb"
+PACKAGE_NAME="github-docs-mcp-4.0.0.mcpb"
 
 echo "=========================================="
 echo "Building GitHub Docs Manager MCPB Package"
