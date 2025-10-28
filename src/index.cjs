@@ -39,7 +39,7 @@ class GitHubMCPServerMinimalOAuth {
     this.server = new this.Server(
       {
         name: "GitHub Docs MCP Server (Minimal + OAuth)",
-        version: "3.0.0",
+        version: "4.0.0",
       },
       {
         capabilities: {
