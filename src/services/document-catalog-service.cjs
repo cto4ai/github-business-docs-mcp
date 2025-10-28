@@ -195,25 +195,13 @@ class DocumentCatalogService {
 
         return hasValidExtension;
       })
-      .map(item => {
-        // Strip basePath prefix to return paths relative to docroot
-        let relativePath = item.path;
-        if (basePath) {
-          relativePath = item.path.substring(basePath.length);
-          // Remove leading slash if present
-          if (relativePath.startsWith('/')) {
-            relativePath = relativePath.substring(1);
-          }
-        }
-
-        return {
-          path: relativePath,
-          name: relativePath.split('/').pop(),
-          size: item.size,
-          sha: item.sha,
-          extension: this.getFileExtension(relativePath)
-        };
-      });
+      .map(item => ({
+        path: item.path,
+        name: item.path.split('/').pop(),
+        size: item.size,
+        sha: item.sha,
+        extension: this.getFileExtension(item.path)
+      }));
   }
 
   /**
