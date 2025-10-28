@@ -2,6 +2,8 @@
 // Provides lightweight catalog of all documents in repository
 // Uses GitHub Tree API for single-call repository discovery
 
+const PathValidator = require('./path-validator.cjs');
+
 class DocumentCatalogService {
   constructor(githubApiService, serverConfig = {}) {
     this.api = githubApiService;
@@ -17,20 +19,7 @@ class DocumentCatalogService {
    * @private
    */
   normalizeDocroot(value) {
-    // undefined = not set in config, use server default
-    if (value === undefined) return null;
-
-    // Normalize root directory indicators to empty string
-    if (value === '.' || value === '/' || value === './') {
-      return '';
-    }
-
-    // Remove trailing slashes for consistency
-    if (typeof value === 'string' && value.endsWith('/')) {
-      return value.slice(0, -1);
-    }
-
-    return value;
+    return PathValidator.normalizeDocroot(value);
   }
 
   /**
