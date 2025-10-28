@@ -105,17 +105,22 @@ class DocrootResolver {
    * @param {string} path - Path to validate
    * @param {Object} options - Validation options
    * @param {boolean} options.ignore_docroot - Whether to bypass docroot check
+   * @param {boolean} options.allow_dotfiles - Whether to allow hidden system files
    * @param {string} options.operation - Operation name (for error messages)
    * @returns {Promise<Object>} - { valid: boolean, error: string|null, docroot: string, source: string }
    */
   async validatePath(owner, repo, path, options = {}) {
-    const { ignore_docroot = false, operation = 'access' } = options;
+    const { ignore_docroot = false, allow_dotfiles = false, operation = 'access' } = options;
 
     // Resolve docroot
     const { docroot, source } = await this.resolveDocroot(owner, repo, { ignore_docroot });
 
-    // Validate path
-    const validation = PathValidator.validatePath(path, docroot, { ignore_docroot, operation });
+    // Validate path (with both docroot and dotfile checks)
+    const validation = PathValidator.validatePath(path, docroot, {
+      ignore_docroot,
+      allow_dotfiles,
+      operation
+    });
 
     return {
       ...validation,

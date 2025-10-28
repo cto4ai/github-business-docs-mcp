@@ -185,6 +185,9 @@ class DocumentCatalogService {
         // Only include blobs (files), not trees (directories)
         if (item.type !== 'blob') return false;
 
+        // Filter out dot-files/folders (hidden system files)
+        if (PathValidator.hasDotComponents(item.path)) return false;
+
         // Filter by path if specified
         if (basePath && !item.path.startsWith(basePath)) return false;
 
