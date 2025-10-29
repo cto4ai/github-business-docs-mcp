@@ -21,31 +21,56 @@ A context-efficient Model Context Protocol server for managing business document
 
 ## Quick Start
 
-### Recommended: MCPB Bundle Installation (One-Click)
+### Recommended: MCPB Bundle Installation (For Organizations)
 
-The easiest way to install is using the MCPB bundle package:
+**For IT/Admins:** Build and distribute MCPB package to your team
 
-1. **Create GitHub OAuth App**
+1. **Clone or Fork this repository**
+   ```bash
+   # Clone directly
+   git clone https://github.com/cto4ai/github-business-docs-mcp.git
+
+   # Or fork to your organization first, then clone
+   # git clone https://github.com/YOUR-ORG/github-business-docs-mcp.git
+
+   cd github-business-docs-mcp
+   npm install
+   ```
+
+2. **Create Organization GitHub OAuth App**
    - Go to [https://github.com/settings/developers](https://github.com/settings/developers)
    - Click **"OAuth Apps"** → **"New OAuth App"**
    - Fill in:
-     - **Application name:** `docs-mcp-[yourname]` (or any name you prefer)
+     - **Application name:** `docs-mcp-[your-org]`
      - **Homepage URL:** `http://localhost:3000`
      - **Authorization callback URL:** `http://localhost:3000/auth/callback`
    - Copy the **Client ID** (starts with `Iv`) and **Client Secret**
 
-2. **Download and Install**
-   - Download the latest `.mcpb` file from [releases](https://github.com/cto4ai/github-business-docs-mcp/releases)
-   - Double-click the `.mcpb` file (or drag to Claude Desktop)
-   - Enter your OAuth credentials when prompted
-   - Done! No config file editing needed.
+3. **Build MCPB package with your organization's credentials**
+   ```bash
+   # Create .env file
+   cp .env.template .env
+   # Edit .env with your OAuth credentials and defaults
 
-3. **First Use**
-   - Browser opens for GitHub authorization
-   - Click "Authorize"
-   - All commits will show YOUR name!
+   # Build the package
+   bash scripts/build-mcpb.sh
+   ```
 
-For detailed MCPB installation instructions, see **[README-MCPB.md](README-MCPB.md)**.
+   This creates `github-business-docs-mcp-4.0.0.mcpb` with your org's credentials embedded.
+
+4. **Distribute to your team**
+   - Share the `.mcpb` file via internal file share, intranet, etc.
+   - Team members double-click to install (no setup needed!)
+   - Each user authorizes with their own GitHub account
+   - All commits show individual user names
+
+**For End Users:** If your IT/admin provides you with a `.mcpb` file:
+- Double-click the `.mcpb` file (or drag to Claude Desktop)
+- On first use, browser opens for GitHub authorization
+- Click "Authorize"
+- Done! All commits will show YOUR name!
+
+For detailed MCPB packaging instructions, see **[README-MCPB.md](README-MCPB.md)**.
 
 ### Alternative: Manual Installation (For Development)
 
