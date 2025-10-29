@@ -39,7 +39,7 @@ class GitHubMCPServerMinimalOAuth {
     this.server = new this.Server(
       {
         name: "GitHub Docs MCP Server (Minimal + OAuth)",
-        version: "3.0.0",
+        version: "4.0.0",
       },
       {
         capabilities: {
@@ -167,28 +167,31 @@ class GitHubMCPServerMinimalOAuth {
           let result;
 
           // Route to appropriate handler
-          // All handlers expect: (params, defaultRepo, apiService)
+          // All handlers expect: (params, defaultRepo, apiService, serverConfig)
           switch (toolName) {
             // File Management
             case "create_or_update_file":
               result = await fileManagementMinimal.createOrUpdateFileHandler(
                 finalArgs,
                 defaults,
-                this.api
+                this.api,
+                this.getServerConfig()
               );
               break;
             case "get_file":
               result = await fileManagementMinimal.getFileHandler(
                 finalArgs,
                 defaults,
-                this.api
+                this.api,
+                this.getServerConfig()
               );
               break;
             case "delete_file":
               result = await fileManagementMinimal.deleteFileHandler(
                 finalArgs,
                 defaults,
-                this.api
+                this.api,
+                this.getServerConfig()
               );
               break;
 
@@ -197,14 +200,16 @@ class GitHubMCPServerMinimalOAuth {
               result = await repositoryMinimal.listContentsHandler(
                 finalArgs,
                 defaults,
-                this.api
+                this.api,
+                this.getServerConfig()
               );
               break;
             case "list_commits":
               result = await repositoryMinimal.listCommitsHandler(
                 finalArgs,
                 defaults,
-                this.api
+                this.api,
+                this.getServerConfig()
               );
               break;
 
@@ -213,7 +218,8 @@ class GitHubMCPServerMinimalOAuth {
               result = await searchMinimal.searchCodeHandler(
                 finalArgs,
                 defaults,
-                this.api
+                this.api,
+                this.getServerConfig()
               );
               break;
 

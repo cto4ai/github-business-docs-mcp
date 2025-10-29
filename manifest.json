@@ -2,7 +2,7 @@
   "manifest_version": "1.0",
   "name": "github-docs-mcp",
   "display_name": "GitHub Docs Manager",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Manage business documents in GitHub with personal commit attribution",
   "long_description": "A minimal Model Context Protocol server for managing business documents in GitHub repositories. All commits show YOUR name, not a bot account. Provides 7 essential tools: create/update files, read files, list contents, delete files, search code, list commits, and get repository catalog.",
 

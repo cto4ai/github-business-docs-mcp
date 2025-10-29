@@ -2,12 +2,24 @@
 // Provides lightweight catalog of all documents in repository
 // Uses GitHub Tree API for single-call repository discovery
 
+const PathValidator = require('./path-validator.cjs');
+
 class DocumentCatalogService {
   constructor(githubApiService, serverConfig = {}) {
     this.api = githubApiService;
     this.serverConfig = serverConfig;
     this.cache = new Map(); // In-memory cache: key -> { catalog, timestamp }
     this.TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
+  }
+
+  /**
+   * Normalize docroot value to handle special cases
+   * @param {string|undefined} value - Docroot value from config
+   * @returns {string|null} - Normalized docroot or null if not set
+   * @private
+   */
+  normalizeDocroot(value) {
+    return PathValidator.normalizeDocroot(value);
   }
 
   /**
@@ -34,7 +46,7 @@ class DocumentCatalogService {
       const config = JSON.parse(content);
 
       const repoConfig = {
-        docroot: config.mcp?.docroot || null,
+        docroot: this.normalizeDocroot(config.mcp?.docroot),
         include_extensions: config.mcp?.include_extensions || null
       };
 
@@ -69,7 +81,7 @@ class DocumentCatalogService {
 
     // Priority 2: Repo config
     const repoConfig = await this.loadRepoConfig(owner, repo);
-    if (repoConfig.docroot) return repoConfig.docroot;
+    if (repoConfig.docroot !== null) return repoConfig.docroot;
 
     // Priority 3: Server default
     if (options.serverDocroot) return options.serverDocroot;
@@ -172,6 +184,9 @@ class DocumentCatalogService {
       .filter(item => {
         // Only include blobs (files), not trees (directories)
         if (item.type !== 'blob') return false;
+
+        // Filter out dot-files/folders (hidden system files)
+        if (PathValidator.hasDotComponents(item.path)) return false;
 
         // Filter by path if specified
         if (basePath && !item.path.startsWith(basePath)) return false;

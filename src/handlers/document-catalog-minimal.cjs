@@ -35,8 +35,14 @@ async function getRepositoryCatalogHandler(params, defaultRepo, apiService, serv
       path: params.path || null,  // Tool parameter (highest priority)
       extensions: params.include_extensions || null,
       branch: params.branch || 'main',
-      serverDocroot: serverConfig.default_docroot || null  // Server default (lowest priority)
+      serverDocroot: serverConfig.default_docroot || null,  // Server default (lowest priority)
+      ignore_docroot: params.ignore_docroot || false  // Allow override
     };
+
+    // If ignore_docroot is true, override path to empty (full repo)
+    if (options.ignore_docroot) {
+      options.path = '';
+    }
 
     // Create catalog service instance
     const catalogService = new DocumentCatalogService(apiService, serverConfig);
