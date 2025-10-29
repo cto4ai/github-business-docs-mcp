@@ -1,5 +1,5 @@
 {
-  "manifest_version": "1.0",
+  "manifest_version": "0.1",
   "name": "github-business-docs-mcp",
   "display_name": "Business Documents (GitHub)",
   "version": "4.0.0",
