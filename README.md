@@ -58,7 +58,7 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
     "github-docs": {
       "command": "node",
       "args": [
-        "/absolute/path/to/github-docs-mcp/server.cjs",
+        "/absolute/path/to/github-business-docs-mcp/server.cjs",
         "--default-owner", "your-username",
         "--default-repo", "your-repo"
       ],
@@ -102,7 +102,7 @@ Perfect for managing business documents:
 ### Repository Structure
 
 ```
-github-docs-mcp/
+github-business-docs-mcp/
 ├── server.cjs                        # Main entry point
 ├── src/
 │   ├── index.cjs                     # OAuth server implementation
