@@ -101,7 +101,7 @@ You can run this server directly without cloning or installing:
 
 ```bash
 # Run directly with npx
-npx -y github-repos-manager-mcp
+npx -y github-business-docs-mcp
 ```
 
 **For macOS/Linux:**
@@ -112,7 +112,7 @@ npx -y github-repos-manager-mcp
       "command": "npx",
       "args": [
         "-y",
-        "github-repos-manager-mcp"
+        "github-business-docs-mcp"
       ],
       "env": {
         "GH_TOKEN": "ghp_YOUR_ACTUAL_TOKEN_HERE"
@@ -130,7 +130,7 @@ npx -y github-repos-manager-mcp
       "command": "npx.cmd",
       "args": [
         "-y",
-        "github-repos-manager-mcp"
+        "github-business-docs-mcp"
       ],
       "env": {
         "GH_TOKEN": "ghp_YOUR_ACTUAL_TOKEN_HERE"
@@ -158,7 +158,7 @@ Then, configure your MCP client to point to the local server using the full path
   "mcpServers": {
     "github-repos-manager": {
       "command": "node",
-      "args": ["/full/path/to/your/project/github-repos-manager-mcp/server.cjs"],
+      "args": ["/full/path/to/your/project/github-business-docs-mcp/server.cjs"],
       "env": {
         "GH_TOKEN": "ghp_YOUR_ACTUAL_TOKEN_HERE"
       }
@@ -203,7 +203,7 @@ Add environment variables to your MCP client configuration:
   "mcpServers": {
     "github-repos-manager": {
       "command": "npx",
-      "args": ["-y", "github-repos-manager-mcp"],
+      "args": ["-y", "github-business-docs-mcp"],
       "env": {
         "GH_TOKEN": "ghp_YOUR_ACTUAL_TOKEN_HERE",
         "GH_DEFAULT_OWNER": "octocat",
@@ -220,7 +220,7 @@ Add environment variables to your MCP client configuration:
   "mcpServers": {
     "github-repos-manager": {
       "command": "node",
-      "args": ["/full/path/to/your/project/github-repos-manager-mcp/server.cjs"],
+      "args": ["/full/path/to/your/project/github-business-docs-mcp/server.cjs"],
       "env": {
         "GH_TOKEN": "ghp_YOUR_ACTUAL_TOKEN_HERE",
         "GH_DEFAULT_OWNER": "octocat",
@@ -313,7 +313,7 @@ For maximum security, you can restrict the server to only allow specific tools b
   "mcpServers": {
     "github-repos-manager": {
       "command": "npx",
-      "args": ["-y", "github-repos-manager-mcp"],
+      "args": ["-y", "github-business-docs-mcp"],
       "env": {
         "GH_TOKEN": "ghp_YOUR_ACTUAL_TOKEN_HERE",
         "GH_DEFAULT_OWNER": "mycompany",
@@ -332,7 +332,7 @@ For maximum security, you can restrict the server to only allow specific tools b
   "mcpServers": {
     "github-repos-manager": {
       "command": "npx.cmd",
-      "args": ["-y", "github-repos-manager-mcp"],
+      "args": ["-y", "github-business-docs-mcp"],
       "env": {
         "GH_TOKEN": "ghp_YOUR_ACTUAL_TOKEN_HERE",
         "GH_DEFAULT_OWNER": "mycompany",
@@ -351,7 +351,7 @@ For maximum security, you can restrict the server to only allow specific tools b
   "mcpServers": {
     "github-repos-manager": {
       "command": "node",
-      "args": ["/full/path/to/your/project/github-repos-manager-mcp/server.cjs"],
+      "args": ["/full/path/to/your/project/github-business-docs-mcp/server.cjs"],
       "env": {
         "GH_TOKEN": "ghp_YOUR_ACTUAL_TOKEN_HERE",
         "GH_DEFAULT_OWNER": "mycompany",
@@ -696,8 +696,8 @@ Once configured, you can ask your MCP client (e.g., Claude) to perform powerful 
 ### Local Development Setup
 ```bash
 # Clone and setup
-mkdir github-repos-manager-mcp
-cd github-repos-manager-mcp
+mkdir github-business-docs-mcp
+cd github-business-docs-mcp
 # Add the server files
 npm install
 chmod +x server.cjs

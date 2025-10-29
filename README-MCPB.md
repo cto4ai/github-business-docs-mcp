@@ -56,7 +56,7 @@ You need to create a GitHub OAuth App to enable secure authentication.
 
 ### Step 2: Install the Extension
 
-1. Download `github-docs-mcp-2.0.0.mcpb` from the [releases page](https://github.com/cto4ai/github-repos-manager-mcp/releases)
+1. Download `github-docs-mcp-2.0.0.mcpb` from the [releases page](https://github.com/cto4ai/github-business-docs-mcp/releases)
 2. **Double-click** the .mcpb file (or drag it to Claude Desktop)
 3. Claude Desktop will prompt you for configuration:
    - **GitHub App Client ID:** Paste the Client ID from Step 1
@@ -240,7 +240,7 @@ This is a **feature**, not a bug - it ensures tokens don't persist indefinitely.
 
 ### Still Having Issues?
 
-Open an issue on GitHub: https://github.com/cto4ai/github-repos-manager-mcp/issues
+Open an issue on GitHub: https://github.com/cto4ai/github-business-docs-mcp/issues
 
 Include:
 - What you were trying to do
@@ -313,7 +313,7 @@ Want to contribute or modify this extension?
 ### Repository Structure
 
 ```
-github-repos-manager-mcp/
+github-business-docs-mcp/
 ├── manifest.json              # MCPB package manifest
 ├── server-minimal-oauth.cjs   # Entry point
 ├── src/
@@ -338,8 +338,8 @@ github-repos-manager-mcp/
 
 ```bash
 # Clone the repository
-git clone https://github.com/cto4ai/github-repos-manager-mcp.git
-cd github-repos-manager-mcp
+git clone https://github.com/cto4ai/github-business-docs-mcp.git
+cd github-business-docs-mcp
 
 # Install dependencies
 npm install
@@ -406,9 +406,9 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Support
 
-- **Documentation:** https://github.com/cto4ai/github-repos-manager-mcp
-- **Issues:** https://github.com/cto4ai/github-repos-manager-mcp/issues
-- **Discussions:** https://github.com/cto4ai/github-repos-manager-mcp/discussions
+- **Documentation:** https://github.com/cto4ai/github-business-docs-mcp
+- **Issues:** https://github.com/cto4ai/github-business-docs-mcp/issues
+- **Discussions:** https://github.com/cto4ai/github-business-docs-mcp/discussions
 
 ---
 

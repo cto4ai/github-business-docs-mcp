@@ -37,6 +37,6 @@
     "node": ">=18.0.0"
   },
   "bin": {
-    "github-repos-manager-mcp": "server.cjs"
+    "github-business-docs-mcp": "server.cjs"
   }
 }

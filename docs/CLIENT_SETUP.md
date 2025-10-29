@@ -70,7 +70,7 @@ If you prefer a GitHub App (more features, more complex):
 
 ### Option A: MCPB Package (Recommended)
 
-1. Download `github-docs-mcp-2.1.0.mcpb` from the [releases page](https://github.com/cto4ai/github-repos-manager-mcp/releases)
+1. Download `github-docs-mcp-2.1.0.mcpb` from the [releases page](https://github.com/cto4ai/github-business-docs-mcp/releases)
 2. Double-click the `.mcpb` file (or drag it to Claude Desktop)
 3. Claude Desktop will prompt for configuration:
    - **GitHub App Client ID:** Paste your Client ID
@@ -87,8 +87,8 @@ If you prefer to install from source:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/cto4ai/github-repos-manager-mcp.git
-   cd github-repos-manager-mcp
+   git clone https://github.com/cto4ai/github-business-docs-mcp.git
+   cd github-business-docs-mcp
    ```
 
 2. Install dependencies:
@@ -107,7 +107,7 @@ If you prefer to install from source:
        "github-docs": {
          "command": "node",
          "args": [
-           "/absolute/path/to/github-repos-manager-mcp/server.cjs",
+           "/absolute/path/to/github-business-docs-mcp/server.cjs",
            "--default-owner", "your-username",
            "--default-repo", "your-repo"
          ],
@@ -456,9 +456,9 @@ Claude will prompt you to re-authorize. Just authorize again and Claude will con
 
 ### Support Channels
 
-- **GitHub Issues:** https://github.com/cto4ai/github-repos-manager-mcp/issues
-- **Documentation:** https://github.com/cto4ai/github-repos-manager-mcp#readme
-- **Discussions:** https://github.com/cto4ai/github-repos-manager-mcp/discussions
+- **GitHub Issues:** https://github.com/cto4ai/github-business-docs-mcp/issues
+- **Documentation:** https://github.com/cto4ai/github-business-docs-mcp#readme
+- **Discussions:** https://github.com/cto4ai/github-business-docs-mcp/discussions
 
 ### When Reporting Issues
 

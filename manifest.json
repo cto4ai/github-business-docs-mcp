@@ -1,7 +1,7 @@
 {
   "manifest_version": "1.0",
   "name": "github-docs-mcp",
-  "display_name": "GitHub Docs Manager",
+  "display_name": "Business Documents (GitHub)",
   "version": "4.0.0",
   "description": "Manage business documents in GitHub with personal commit attribution",
   "long_description": "A minimal Model Context Protocol server for managing business documents in GitHub repositories. All commits show YOUR name, not a bot account. Provides 7 essential tools: create/update files, read files, list contents, delete files, search code, list commits, and get repository catalog.",
@@ -14,12 +14,12 @@
 
   "repository": {
     "type": "git",
-    "url": "https://github.com/cto4ai/github-repos-manager-mcp"
+    "url": "https://github.com/cto4ai/github-business-docs-mcp"
   },
 
-  "homepage": "https://github.com/cto4ai/github-repos-manager-mcp",
-  "documentation": "https://github.com/cto4ai/github-repos-manager-mcp#readme",
-  "support": "https://github.com/cto4ai/github-repos-manager-mcp/issues",
+  "homepage": "https://github.com/cto4ai/github-business-docs-mcp",
+  "documentation": "https://github.com/cto4ai/github-business-docs-mcp#readme",
+  "support": "https://github.com/cto4ai/github-business-docs-mcp/issues",
 
   "keywords": [
     "github",

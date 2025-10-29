@@ -104,7 +104,7 @@ Ensure your `claude_desktop_config.json` includes:
   "mcpServers": {
     "github-repos-manager": {
       "command": "npx",
-      "args": ["github-repos-manager-mcp"],
+      "args": ["github-business-docs-mcp"],
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "your_github_token_here"
       }

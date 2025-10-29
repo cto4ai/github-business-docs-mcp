@@ -279,7 +279,7 @@ The server is ready to:
 ## File Structure
 
 ```
-github-repos-manager-mcp/
+github-business-docs-mcp/
 ├── src/
 │   ├── services/
 │   │   ├── github-api.cjs              # GitHub API service (existing)
@@ -367,7 +367,7 @@ github-repos-manager-mcp/
     "github-docs": {
       "command": "node",
       "args": [
-        "/path/to/github-repos-manager-mcp/server-minimal-oauth.cjs",
+        "/path/to/github-business-docs-mcp/server-minimal-oauth.cjs",
         "--default-owner", "your-username",
         "--default-repo", "your-repo"
       ],

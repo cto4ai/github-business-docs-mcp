@@ -52,7 +52,7 @@ nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
     "github-docs": {
       "command": "node",
       "args": [
-        "/absolute/path/to/github-repos-manager-mcp/server-minimal-oauth.cjs",
+        "/absolute/path/to/github-business-docs-mcp/server-minimal-oauth.cjs",
         "--default-owner", "your-github-username",
         "--default-repo", "your-repo-name"
       ],
@@ -66,7 +66,7 @@ nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
 ```
 
 **Replace:**
-- `/absolute/path/to/github-repos-manager-mcp/` → Your actual path
+- `/absolute/path/to/github-business-docs-mcp/` → Your actual path
 - `your-github-username` → Your GitHub username
 - `your-repo-name` → Your default repository
 - `Iv1.your_client_id_here` → Your GitHub App Client ID
@@ -78,7 +78,7 @@ nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
 
 **Find your MCP directory path:**
 ```bash
-cd /path/to/github-repos-manager-mcp
+cd /path/to/github-business-docs-mcp
 pwd
 ```
 
@@ -86,7 +86,7 @@ Copy the output and use it in the config.
 
 **Example:**
 ```
-/Users/yourname/Projects/docs-as-code/github-repos-manager-mcp
+/Users/yourname/Projects/docs-as-code/github-business-docs-mcp
 ```
 
 ---
@@ -101,7 +101,7 @@ Copy the output and use it in the config.
     "github-docs": {
       "command": "node",
       "args": [
-        "/Users/jackivers/Projects/docs-as-code/github-repos-manager-mcp/server-minimal-oauth.cjs",
+        "/Users/jackivers/Projects/docs-as-code/github-business-docs-mcp/server-minimal-oauth.cjs",
         "--default-owner", "your-github-username",
         "--default-repo", "your-repo-name"
       ],

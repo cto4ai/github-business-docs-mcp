@@ -9,7 +9,7 @@ This guide walks you through testing the newly built MCPB package.
 - **Name:** `github-docs-mcp-2.0.0.mcpb`
 - **Display Name:** GitHub Docs Manager
 - **Size:** 1.5M
-- **Location:** `/Users/jackivers/Projects/docs-as-code/github-repos-manager-mcp/`
+- **Location:** `/Users/jackivers/Projects/docs-as-code/github-business-docs-mcp/`
 
 ---
 
@@ -48,7 +48,7 @@ Keep these handy for installation!
 
 1. Navigate to the package in Finder:
    ```bash
-   open /Users/jackivers/Projects/docs-as-code/github-repos-manager-mcp/
+   open /Users/jackivers/Projects/docs-as-code/github-business-docs-mcp/
    ```
 
 2. **Double-click** `github-docs-mcp-2.0.0.mcpb`

@@ -492,7 +492,7 @@ If you encounter issues during migration:
 
 1. Check this guide first
 2. Review the [implementation plan](../new-features/v3.0.0-minimal-catalog-docroot.md)
-3. File an issue: https://github.com/cto4ai/github-repos-manager-mcp/issues
+3. File an issue: https://github.com/cto4ai/github-business-docs-mcp/issues
 
 ---
 
