@@ -246,7 +246,24 @@ kill -9 [PID]
 
 ## Version History
 
-- **v2.1.0** (Current) - Added document catalog feature
+- **v4.0.0** (Current) - Path prepending and dot-file protection
+  - Full docroot enforcement across all 7 tools
+  - New PathValidator service and DocrootResolver utility
+  - `ignore_docroot` parameter added to all tools for override
+  - Dot-file filtering to protect sensitive configuration files
+  - Automatic path prepending for docroot-scoped operations
+  - Package renamed from `github-docs-mcp` to `github-business-docs-mcp`
+
+- **v3.0.1** - Bug fix for docroot handling
+  - Fixed docroot handling for empty string and "." values in `.mcp-config.json`
+
+- **v3.0.0** - Minimal catalog output + docroot configuration
+  - Simplified catalog output format (removed `tree`, renamed `flat_list` to `files`)
+  - Added docroot configuration with 3-level hierarchy (tool parameter → `.mcp-config.json` → server default)
+  - Added `.mcp-config.json` support for per-repo configuration
+  - Moved `get_repository_catalog` to first position as discovery tool
+
+- **v2.1.0** - Added document catalog feature
   - 7 tools (added `get_repository_catalog`)
   - Single-call repository document discovery
   - In-memory catalog caching with 5-minute TTL
