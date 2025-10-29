@@ -1,6 +1,6 @@
 {
   "manifest_version": "1.0",
-  "name": "github-docs-mcp",
+  "name": "github-business-docs-mcp",
   "display_name": "Business Documents (GitHub)",
   "version": "4.0.0",
   "description": "Manage business documents in GitHub with personal commit attribution",
