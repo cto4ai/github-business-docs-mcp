@@ -7,10 +7,10 @@ set -e  # Exit on error
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 BUILD_DIR="$PROJECT_ROOT/mcpb-build"
-PACKAGE_NAME="github-docs-mcp-4.0.0.mcpb"
+PACKAGE_NAME="github-business-docs-mcp-4.0.0.mcpb"
 
 echo "=========================================="
-echo "Building GitHub Docs Manager MCPB Package"
+echo "Building Business Documents (GitHub) MCPB Package"
 echo "=========================================="
 echo ""
 
@@ -122,8 +122,8 @@ if (!manifest.name || !manifest.version || !manifest.display_name) {
   console.error('Invalid manifest: missing required fields');
   process.exit(1);
 }
-if (manifest.name !== 'github-docs-mcp') {
-  console.error('Invalid manifest: name should be github-docs-mcp');
+if (manifest.name !== 'github-business-docs-mcp') {
+  console.error('Invalid manifest: name should be github-business-docs-mcp');
   process.exit(1);
 }
 if (manifest.version !== '4.0.0') {
