@@ -1,8 +1,10 @@
-# GitHub Docs MCP Server
+# GitHub Business Docs MCP Server
 
 **Minimal GitHub MCP with OAuth User Attribution**
 
 A context-efficient Model Context Protocol server for managing business documents in GitHub repositories. Features OAuth authentication so commits show your name, not a bot account.
+
+**Installation:** Use the `.mcpb` bundle package for one-click installation in Claude Desktop (see Quick Start below).
 
 ---
 
@@ -19,65 +21,67 @@ A context-efficient Model Context Protocol server for managing business document
 
 ## Quick Start
 
-### 1. Create GitHub OAuth Credentials
+### Recommended: MCPB Bundle Installation (One-Click)
 
-**Recommended: OAuth App (Simpler)**
+The easiest way to install is using the MCPB bundle package:
 
-1. Go to [https://github.com/settings/developers](https://github.com/settings/developers)
-2. Click **"OAuth Apps"** → **"New OAuth App"**
-3. Fill in:
-   - **Application name:** `docs-mcp-[yourname]` (or any name you prefer)
-   - **Homepage URL:** `http://localhost:3000`
-   - **Authorization callback URL:** `http://localhost:3000/auth/callback`
-4. Click **"Register application"**
-5. Copy the **Client ID** (starts with `Iv`)
-6. Click **"Generate a new client secret"**
-7. Copy the **Client Secret** (you can only see it once!)
+1. **Create GitHub OAuth App**
+   - Go to [https://github.com/settings/developers](https://github.com/settings/developers)
+   - Click **"OAuth Apps"** → **"New OAuth App"**
+   - Fill in:
+     - **Application name:** `docs-mcp-[yourname]` (or any name you prefer)
+     - **Homepage URL:** `http://localhost:3000`
+     - **Authorization callback URL:** `http://localhost:3000/auth/callback`
+   - Copy the **Client ID** (starts with `Iv`) and **Client Secret**
 
-**Alternative: GitHub App (Also Works)**
+2. **Download and Install**
+   - Download the latest `.mcpb` file from [releases](https://github.com/cto4ai/github-business-docs-mcp/releases)
+   - Double-click the `.mcpb` file (or drag to Claude Desktop)
+   - Enter your OAuth credentials when prompted
+   - Done! No config file editing needed.
 
-GitHub Apps also work but require more setup. If you prefer:
-- Go to [https://github.com/settings/apps/new](https://github.com/settings/apps/new)
-- Use the app's Client ID and Client Secret for OAuth
+3. **First Use**
+   - Browser opens for GitHub authorization
+   - Click "Authorize"
+   - All commits will show YOUR name!
 
-Both options provide identical OAuth user authentication.
+For detailed MCPB installation instructions, see **[README-MCPB.md](README-MCPB.md)**.
 
-### 2. Install Dependencies
+### Alternative: Manual Installation (For Development)
 
-```bash
-npm install
-```
+If you're developing or want manual control:
 
-### 3. Configure Claude Desktop
+1. **Create GitHub OAuth Credentials** (same as above)
 
-Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
+2. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-```json
-{
-  "mcpServers": {
-    "github-docs": {
-      "command": "node",
-      "args": [
-        "/absolute/path/to/github-business-docs-mcp/server.cjs",
-        "--default-owner", "your-username",
-        "--default-repo", "your-repo"
-      ],
-      "env": {
-        "GITHUB_CLIENT_ID": "your_client_id_here",
-        "GITHUB_CLIENT_SECRET": "your_client_secret_here"
-      }
-    }
-  }
-}
-```
+3. **Configure Claude Desktop**
 
-### 4. Use with Claude
+   Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
-Start Claude Desktop. On first use:
-1. Browser opens for GitHub authorization
-2. Click "Authorize"
-3. Return to Claude Desktop
-4. All commits will show YOUR name!
+   ```json
+   {
+     "mcpServers": {
+       "github-docs": {
+         "command": "node",
+         "args": [
+           "/absolute/path/to/github-business-docs-mcp/server.cjs",
+           "--default-owner", "your-username",
+           "--default-repo", "your-repo"
+         ],
+         "env": {
+           "GITHUB_CLIENT_ID": "your_client_id_here",
+           "GITHUB_CLIENT_SECRET": "your_client_secret_here"
+         }
+       }
+     }
+   }
+   ```
+
+4. **Use with Claude** - Start Claude Desktop and authorize when prompted
 
 ---
 
@@ -171,9 +175,26 @@ All commits are attributed to YOU, not a bot account.
 
 ## Development
 
-### Testing
+### Building MCPB Package
 
-Run the server:
+To build a production-ready MCPB bundle:
+
+```bash
+# 1. Create .env file with your credentials
+cp .env.template .env
+# Edit .env with your GitHub OAuth credentials
+
+# 2. Build the package
+bash scripts/build-mcpb.sh
+```
+
+This creates `github-business-docs-mcp-4.0.0.mcpb` ready for distribution.
+
+For detailed MCPB packaging instructions, see **[docs/development/mcpb-packaging.md](docs/development/mcpb-packaging.md)**.
+
+### Testing Locally
+
+Run the server directly for development:
 
 ```bash
 node server.cjs --default-owner YOUR_OWNER --default-repo YOUR_REPO
@@ -190,6 +211,7 @@ GITHUB_CLIENT_ID=your_client_id
 GITHUB_CLIENT_SECRET=your_client_secret
 GH_DEFAULT_OWNER=your-username
 GH_DEFAULT_REPO=your-repo
+GH_DEFAULT_DOCROOT=docs  # Optional: restrict to a subdirectory
 ```
 
 ---
