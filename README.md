@@ -25,17 +25,14 @@ A context-efficient Model Context Protocol server for managing business document
 
 **For IT/Admins:** Build and distribute MCPB package to your team
 
-1. **Clone or Fork this repository**
+1. **Clone this repository**
    ```bash
-   # Clone directly
    git clone https://github.com/cto4ai/github-business-docs-mcp.git
-
-   # Or fork to your organization first, then clone
-   # git clone https://github.com/YOUR-ORG/github-business-docs-mcp.git
-
    cd github-business-docs-mcp
    npm install
    ```
+
+   *Note: Organizations wanting to maintain a private copy should clone to a new private repository in their org rather than forking (public forks of public repos cannot be made private).*
 
 2. **Create Organization GitHub OAuth App**
    - Go to [https://github.com/settings/developers](https://github.com/settings/developers)
