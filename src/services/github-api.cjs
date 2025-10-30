@@ -208,6 +208,37 @@ class GitHubAPIService {
     }
   }
 
+  /**
+   * List commits for a repository or specific file path
+   * @param {string} owner - Repository owner
+   * @param {string} repo - Repository name
+   * @param {Object} options - Query options
+   * @param {string} options.path - Only commits containing this file path
+   * @param {string} options.sha - SHA or branch to start listing commits from
+   * @param {number} options.per_page - Number of results (1-100, default 30)
+   * @returns {Promise<Array>} Array of commit objects
+   */
+  async listCommits(owner, repo, options = {}) {
+    const { path, sha, per_page = 30 } = options;
+
+    const params = new URLSearchParams({
+      per_page: per_page.toString(),
+    });
+
+    if (sha) params.append("sha", sha);
+    if (path) params.append("path", path);
+
+    const endpoint = `/repos/${owner}/${repo}/commits?${params.toString()}`;
+
+    try {
+      const result = await this.makeGitHubRequest(endpoint);
+      return result;
+    } catch (error) {
+      console.error(`Failed to list commits for '${path || 'repository'}': ${error.message}`);
+      throw error;
+    }
+  }
+
   async testAuthentication() {
     try {
       const user = await this.makeGitHubRequest("/user");
