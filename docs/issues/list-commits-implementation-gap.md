@@ -18,6 +18,10 @@ apiService.listCommits is not a function
 - User attempted to use the tool to view commit history
 - Claude Desktop showed tool as available but execution failed
 
+---
+**🎯 QUICK SUMMARY**: Only 1 API method is missing. Adding `listCommits()` to GitHubAPIService will enable complete version history workflows because the other 2 required methods (`getRepoContents` with ref parameter and `createOrUpdateFile`) already exist and work correctly.
+---
+
 ## Technical Analysis
 
 ### Where the Problem Exists
@@ -144,12 +148,40 @@ During investigation, we explored what business users actually need for version 
 - "Let me see what the old version looked like before I restore it"
 - "Show me the difference between now and the version from last Tuesday"
 
+### Key Finding: Only ONE Missing Method
+
+**To enable all 3 business scenarios, we only need to add ONE method:**
+
+✅ **What We Already Have (2 methods):**
+- `getRepoContents(owner, repo, path, ref)` - Can retrieve file content at any commit SHA
+- `createOrUpdateFile()` - Can create commits to restore old content
+
+❌ **What's Missing (1 method):**
+- `listCommits()` - Cannot get commit history or SHAs
+
+**The Insight**: The infrastructure for preview and restore already exists. We just need the ability to list commits so users can discover the SHAs to use with existing methods.
+
+**Without `listCommits()`, users would need to:**
+1. Open GitHub web UI manually
+2. Find the commit SHA they want
+3. Copy and paste it into MCP tool calls
+4. Defeats the whole purpose of "business-friendly" documentation management
+
+**With `listCommits()`, users get complete workflows:**
+- "Show me history" → List of commits with SHAs, dates, authors
+- "Preview old version" → Use that SHA with existing `getRepoContents()`
+- "Restore version" → Use that content with existing `createOrUpdateFile()`
+
+**Adding 1 method unlocks 3 complete workflows.**
+
 ### Required Capabilities Analysis
 
 To support these scenarios, we need:
 
-#### 1. View Version History (Currently Broken)
+#### 1. View Version History
+**Status**: ❌ BLOCKED - Must implement
 **Method**: `listCommits(owner, repo, {path, sha, per_page})`
+**Why needed**: Users cannot discover commit SHAs without this
 **Returns**: Array of commits with:
 - Commit SHA (version identifier)
 - Commit message
@@ -158,15 +190,33 @@ To support these scenarios, we need:
 
 **Business user sees**: "Version history" similar to Google Docs revision history
 
-#### 2. Preview Old Version (Already Available!)
-**Method**: `getRepoContents(owner, repo, path, ref)` ✅
-**Returns**: File content from that point in time
+#### 2. Preview Old Version
+**Status**: ✅ ALREADY WORKS
+**Method**: `getRepoContents(owner, repo, path, ref)` where ref is a commit SHA
+**Why it works**: Existing method already supports commit SHA as ref parameter
+**Returns**: File content from any historical commit
 
-**Note**: The `ref` parameter can be a commit SHA, enabling retrieval of any historical version
+**Example that works TODAY**:
+```javascript
+// This works right now!
+getRepoContents("myorg", "docs", "README.md", "abc123def456")
+// Returns README.md as it was at commit abc123def456
+```
 
-#### 3. Restore Version (Already Available!)
-**Method**: `createOrUpdateFile()` ✅
+#### 3. Restore Version
+**Status**: ✅ ALREADY WORKS
+**Method**: `createOrUpdateFile()` with old content
+**Why it works**: Existing method can commit any content
 **Returns**: New commit with restored content
+
+**Example that works TODAY**:
+```javascript
+// This works right now!
+createOrUpdateFile("myorg", "docs", "README.md",
+                   "Restored to version from Oct 15",
+                   oldContentBase64, currentSHA, "main")
+// Creates new commit with the restored content
+```
 
 ### Complete Workflow Example
 
